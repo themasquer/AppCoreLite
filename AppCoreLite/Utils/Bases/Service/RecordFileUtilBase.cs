@@ -4,20 +4,20 @@ using Microsoft.AspNetCore.Http;
 
 namespace AppCoreLite.Utils.Bases.Service
 {
-    public abstract class FileUtilBase
+    public abstract class RecordFileUtilBase
     {
         private IFormFile? _formFile;
         private string? _acceptedFileExtensions;
         private double? _acceptedFileLengthInMegaBytes;
         private char _acceptedFileExtensionsSeperator;
         private List<string>? _hierarchicalDirectories;
-        private Models.File? _file;
+        private RecordFile? _file;
         private bool _isFileDeleted;
 
         public bool HasFormFile => _formFile == null ? false : true;
         public bool IsFileDeleted => _isFileDeleted;
 
-        protected FileUtilBase()
+        protected RecordFileUtilBase()
         {
             _formFile = null;
             _acceptedFileExtensions = null;
@@ -28,24 +28,24 @@ namespace AppCoreLite.Utils.Bases.Service
             _isFileDeleted = false;
         }
 
-        public virtual void SetConfig(string? acceptedFileExtensions = null, double? acceptedFileLengthInMegaBytes = null, params string[] hierarchicalDirectories)
+        public void SetConfig(string? acceptedFileExtensions = null, double? acceptedFileLengthInMegaBytes = null, params string[] hierarchicalDirectories)
         {
             _acceptedFileExtensions = acceptedFileExtensions;
             _acceptedFileLengthInMegaBytes = acceptedFileLengthInMegaBytes;
             _hierarchicalDirectories = hierarchicalDirectories.Length == 0 ? null : hierarchicalDirectories.ToList();
         }
 
-        public virtual void SetConfig(IFormFile formFile)
+        public void SetConfig(IFormFile formFile)
         {
             _formFile = formFile;
         }
 
-        public virtual void SetConfig(bool isFileDeleted)
+        public void SetConfig(bool isFileDeleted)
         {
             _isFileDeleted = isFileDeleted;
         }
 
-        public static string GetImgSrc(IFile record)
+        public static string GetImgSrc(IRecordFile record)
         {
             string imgSrc = "";
             if (record.FileData != null && !string.IsNullOrWhiteSpace(record.FileContent))
@@ -53,7 +53,7 @@ namespace AppCoreLite.Utils.Bases.Service
             return imgSrc;
         }
 
-        public static string GetImgSrc(IFile record, int entityId)
+        public static string GetImgSrc(IRecordFile record, int entityId)
         {
             string imgSrc = "";
             if (!string.IsNullOrWhiteSpace(record.FileContent) && !string.IsNullOrWhiteSpace(record.FilePath))
@@ -61,13 +61,13 @@ namespace AppCoreLite.Utils.Bases.Service
             return imgSrc;
         }
 
-        public virtual Models.File? SaveFile(int? entityId = null)
+        public virtual RecordFile? SaveFile(int? entityId = null)
         {
             if (_formFile != null)
             {
                 var hierarchicalDirectories = _hierarchicalDirectories != null ? _hierarchicalDirectories.ToList() : null;
                 hierarchicalDirectories?.Remove("wwwroot");
-                _file = new Models.File()
+                _file = new RecordFile()
                 {
                     FileContent = Path.GetExtension(_formFile.FileName).ToLower(),
                     FilePath = hierarchicalDirectories != null ? "/" + string.Join("/", hierarchicalDirectories) + "/" : null

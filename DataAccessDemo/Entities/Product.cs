@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 
 namespace DataAccessDemo.Entities
 {
-    public class Product : Record, IFile
+    public class Product : Record, IRecordFile
     {
         [Required(ErrorMessage = "{0} zorunludur!")]
         [MinLength(3, ErrorMessage = "{0} minimum {1} karakter olmalıdır!")]
@@ -86,7 +86,7 @@ namespace DataAccessDemo.Entities
                 .ForMember(d => d.StoresDisplay, o => o.MapFrom(s => string.Join("<br />", s.ProductStores.Select(ps => ps.Store.Name))))
                 .ForMember(d => d.UnitPriceDisplay, o => o.MapFrom(s => s.UnitPrice.HasValue ? s.UnitPrice.Value.ToString("C2", new CultureInfo("tr-TR")) : ""))
                 .ForMember(d => d.ExpirationDateDisplay, o => o.MapFrom(s => s.ExpirationDate.HasValue ? s.ExpirationDate.Value.ToString("dd.MM.yyyy") : ""))
-                .ForMember(d => d.FileContent, o => o.MapFrom(s => FileUtil.GetImgSrc(s, s.Id)));
+                .ForMember(d => d.FileContent, o => o.MapFrom(s => RecordFileUtil.GetImgSrc(s, s.Id)));
         }
     }
 }

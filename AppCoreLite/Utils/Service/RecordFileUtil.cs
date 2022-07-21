@@ -2,7 +2,7 @@
 
 namespace AppCoreLite.Utils.Service
 {
-    public class FileUtil : FileUtilBase
+    public class RecordFileUtil : RecordFileUtilBase
     {
     }
 }

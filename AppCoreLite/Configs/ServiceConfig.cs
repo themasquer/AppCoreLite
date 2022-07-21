@@ -5,19 +5,19 @@ namespace AppCoreLite.Configs
 {
     public class ServiceConfig : IConfig
     {
-        public virtual string ChangesNotSaved { get; set; }
-        public virtual string AddedSuccessfuly { get; set; }
-        public virtual string UpdatedSuccessfuly { get; set; }
-        public virtual string DeletedSuccessfuly { get; set; }
-        public virtual string RecordFound { get; set; }
-        public virtual string RecordsFound { get; set; }
-        public virtual string RecordNotFound { get; set; }
-        public virtual string OperationFailed { get; set; }
-        public virtual string All { get; set; }
-        public virtual List<string> RecordsPerPageCounts { get; set; }
-        public virtual string PageOrderFilterSessionKey { get; set; }
-        public virtual string InvalidFileExtensionOrFileLength { get; set; }
-        public virtual string RelatedRecordsFound { get; set; }
+        public string ChangesNotSaved { get; set; }
+        public string AddedSuccessfuly { get; set; }
+        public string UpdatedSuccessfuly { get; set; }
+        public string DeletedSuccessfuly { get; set; }
+        public string RecordFound { get; set; }
+        public string RecordsFound { get; set; }
+        public string RecordNotFound { get; set; }
+        public string OperationFailed { get; set; }
+        public string All { get; set; }
+        public List<string> RecordsPerPageCounts { get; set; }
+        public string PageOrderFilterSessionKey { get; set; }
+        public string InvalidFileExtensionOrFileLength { get; set; }
+        public string RelatedRecordsFound { get; set; }
 
         public ServiceConfig()
         {

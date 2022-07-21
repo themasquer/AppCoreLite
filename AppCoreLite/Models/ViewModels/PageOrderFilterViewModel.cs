@@ -20,7 +20,7 @@ namespace AppCoreLite.Models.ViewModels
             Config = new PageOrderFilterViewConfig();
         }
 
-        public virtual void SetConfig(Languages language)
+        public void SetConfig(Languages language)
         {
             Config.Set(language);
         }

@@ -50,7 +50,7 @@ builder.Services.AddScoped<StoreServiceBase, StoreService>();
 
 builder.Services.AddScoped<UserUtilBase, UserUtil>();
 builder.Services.AddScoped<SessionUtilBase, SessionUtil>();
-builder.Services.AddScoped<FileUtilBase, FileUtil>();
+builder.Services.AddScoped<RecordFileUtilBase, RecordFileUtil>();
 
 builder.Services.AddScoped<DataTableUtilBase, DataTableUtil>();
 #endregion

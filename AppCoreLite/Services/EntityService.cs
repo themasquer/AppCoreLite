@@ -16,7 +16,7 @@ namespace AppCoreLite.Services
     /// </summary>
     public class EntityService<T> : ServiceBase<T> where T : Record, new()
     {
-        public EntityService(DbContext db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, FileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public EntityService(DbContext db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
         {
             _propertiesForOrdering = _reflectionUtil.GetProperties<T>(TagAttributes.Order);
             _propertiesForFiltering = _reflectionUtil.GetProperties<T>(TagAttributes.StringFilter);

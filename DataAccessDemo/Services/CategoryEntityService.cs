@@ -11,14 +11,14 @@ namespace DataAccessDemo.Services
 {
     public class CategoryEntityServiceBase : EntityService<CategoryEntity>
     {
-        public CategoryEntityServiceBase(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, FileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public CategoryEntityServiceBase(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
         {
         }
     }
 
     public class CategoryEntityService : CategoryEntityServiceBase
     {
-        public CategoryEntityService(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, FileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public CategoryEntityService(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
         {
         }
 

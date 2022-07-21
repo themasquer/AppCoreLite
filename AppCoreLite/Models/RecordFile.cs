@@ -2,7 +2,7 @@
 
 namespace AppCoreLite.Models
 {
-    public class File : IFile
+    public class RecordFile : IRecordFile
     {
         public byte[]? FileData { get; set; }
         public string? FileContent { get; set; }

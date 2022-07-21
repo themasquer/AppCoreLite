@@ -11,14 +11,14 @@ namespace DataAccessDemo.Services
 {
     public class StoreEntityServiceBase : EntityService<StoreEntity>
     {
-        public StoreEntityServiceBase(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, FileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public StoreEntityServiceBase(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
         {
         }
     }
 
     public class StoreEntityService : StoreEntityServiceBase
     {
-        public StoreEntityService(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, FileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public StoreEntityService(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
         {
         }
 

@@ -21,20 +21,21 @@ namespace AppCoreLite.Services
         private Mapper? _mapper;
         private MapperConfiguration? _mapperConfiguration;
 
-        public Service(DbContext db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, FileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public Service(DbContext db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
         {
             _propertiesForOrdering = _reflectionUtil.GetProperties<TModel>(TagAttributes.Order);
             _propertiesForFiltering = _reflectionUtil.GetProperties<TModel>(TagAttributes.StringFilter);
-            SetMapper(new MapperConfiguration(c =>
+            SetConfig(new MapperConfiguration(c =>
             {
                 c.CreateMap<TEntity, TModel>().ReverseMap();
             }));
         }
 
-        protected void SetMapper(MapperConfiguration mapperConfiguration)
+        protected void SetConfig(MapperConfiguration mapperConfiguration, Languages language = Languages.Turkish)
         {
             _mapperConfiguration = mapperConfiguration;
             _mapper = new Mapper(mapperConfiguration);
+            base.SetConfig(language);
         }
 
         public virtual IQueryable<TModel> Query(params Expression<Func<TEntity, object?>>[] navigationPropertyPaths)

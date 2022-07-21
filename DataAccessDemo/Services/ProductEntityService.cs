@@ -12,14 +12,14 @@ namespace DataAccessDemo.Services
 {
     public class ProductEntityServiceBase : EntityService<ProductEntity>
     {
-        public ProductEntityServiceBase(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, FileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public ProductEntityServiceBase(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
         {
         }
     }
 
     public class ProductEntityService : ProductEntityServiceBase
     {
-        public ProductEntityService(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, FileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public ProductEntityService(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
         {
         }
 
@@ -42,7 +42,7 @@ namespace DataAccessDemo.Services
                 StockAmount = p.StockAmount,
                 ExpirationDate = p.ExpirationDate,
                 ExpirationDateDisplay = p.ExpirationDate.HasValue ? p.ExpirationDate.Value.ToString("MM/dd/yyyy") : "",
-                FileContent = FileUtil.GetImgSrc(p)
+                FileContent = RecordFileUtil.GetImgSrc(p)
             });
         }
 

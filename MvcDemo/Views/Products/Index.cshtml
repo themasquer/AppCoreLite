@@ -49,19 +49,29 @@
 			<thead>
 					<tr>
 						<th>
-							@Html.DisplayNameFor(model => model.Products.FirstOrDefault().Name)
+							<a href="#" class="orderexpressionlink">
+								@Html.DisplayNameFor(model => model.Products.FirstOrDefault().Name)
+							</a>
 						</th>
 						<th>
-							@Html.DisplayNameFor(model => model.Products.FirstOrDefault().CategoryDisplay)
+							<a href="#" class="orderexpressionlink">
+								@Html.DisplayNameFor(model => model.Products.FirstOrDefault().CategoryDisplay)
+							</a>
 						</th>
 						<th>
-							@Html.DisplayNameFor(model => model.Products.FirstOrDefault().UnitPriceDisplay)
+							<a href="#" class="orderexpressionlink">
+								@Html.DisplayNameFor(model => model.Products.FirstOrDefault().UnitPriceDisplay)
+							</a>
 						</th>
 						<th>
-							@Html.DisplayNameFor(model => model.Products.FirstOrDefault().StockAmount)
+							<a href="#" class="orderexpressionlink">
+								@Html.DisplayNameFor(model => model.Products.FirstOrDefault().StockAmount)
+							</a>
 						</th>
 						<th>
-							@Html.DisplayNameFor(model => model.Products.FirstOrDefault().ExpirationDateDisplay)
+							<a href="#" class="orderexpressionlink">
+								@Html.DisplayNameFor(model => model.Products.FirstOrDefault().ExpirationDateDisplay)
+							</a>
 						</th>
 						<th style="width: 13%;">
 							@Html.DisplayNameFor(model => model.Products.FirstOrDefault().FileContent)

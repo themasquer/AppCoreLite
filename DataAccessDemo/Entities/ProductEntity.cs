@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace DataAccessDemo.Entities
 {
-    public partial class ProductEntity : Record, IFile
+    public partial class ProductEntity : Record, IRecordFile
     {
         [Required(ErrorMessage = "{0} is required!")]
         [MinLength(3, ErrorMessage = "{0} must have minimum {1} characters!")]

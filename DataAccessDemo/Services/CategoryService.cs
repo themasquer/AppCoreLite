@@ -11,16 +11,16 @@ namespace DataAccessDemo.Services
 {
     public class CategoryServiceBase : Service<Category, CategoryModel>
     {
-        public CategoryServiceBase(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, FileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public CategoryServiceBase(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
         {
         }
     }
 
     public class CategoryService : CategoryServiceBase
     {
-        public CategoryService(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, FileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public CategoryService(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
         {
-            SetMapper(new MapperConfiguration(c => c.AddProfile<CategoryProfile>()));
+            SetConfig(new MapperConfiguration(c => c.AddProfile<CategoryProfile>()));
         }
 
         public override Result Add(CategoryModel model, bool save = true, bool trim = true)

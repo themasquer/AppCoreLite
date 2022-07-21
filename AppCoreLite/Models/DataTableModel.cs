@@ -231,7 +231,7 @@ namespace AppCoreLite.Models
             DeleteTitle = "Sil";
         }
 
-        public virtual void Set(Languages language)
+        public void Set(Languages language)
         {
             DetailsText = language == Languages.Turkish ? "Detay" : "Details";
             EditText = language == Languages.Turkish ? "Düzenle" : "Edit";

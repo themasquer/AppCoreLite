@@ -10,16 +10,16 @@ namespace DataAccessDemo.Services
 {
     public class StoreServiceBase : Service<Store, StoreModel>
     {
-        public StoreServiceBase(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, FileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public StoreServiceBase(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
         {
         }
     }
 
     public class StoreService : StoreServiceBase
     {
-        public StoreService(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, FileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public StoreService(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
         {
-            SetMapper(new MapperConfiguration(c => c.AddProfile<StoreProfile>()));
+            SetConfig(new MapperConfiguration(c => c.AddProfile<StoreProfile>()));
         }
 
         public override Result Add(StoreModel model, bool save = true, bool trim = true)

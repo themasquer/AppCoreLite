@@ -9,10 +9,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AppCoreLite.Services.Bases
 {
+    /// <summary>
+    /// Base service class that includes common fields, properties and methods for its sub classes EntityService and Service.
+    /// </summary>
     public abstract class ServiceBase<T> : IDisposable where T : Record, new()
     {
         protected readonly DbContext _db;
-        protected readonly FileUtilBase? _fileUtil;
+        protected readonly RecordFileUtilBase? _fileUtil;
         protected readonly SessionUtilBase? _sessionUtil;
 
         protected ReflectionUtility _reflectionUtil;
@@ -60,7 +63,7 @@ namespace AppCoreLite.Services.Bases
         public List<string>? OrderExpressions => _propertiesForOrdering?.Select(pm => !string.IsNullOrWhiteSpace(pm.DisplayName) ? pm.DisplayName : pm.Name).ToList();
         public string? TotalRecordsCount { get; set; }
 
-        protected ServiceBase(DbContext db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, FileUtilBase? fileUtil)
+        protected ServiceBase(DbContext db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil)
         {
             _db = db;
             _userUtil = userUtil;
@@ -72,17 +75,17 @@ namespace AppCoreLite.Services.Bases
             SetEntityInterfacePropertyNames();
         }
 
-        public virtual void SetConfig(Languages language)
+        public void SetConfig(Languages language)
         {
             Config.Set(language);
         }
 
-        public virtual void SetFileUtilConfig(string acceptedFileExtensions, double acceptedFileLengthInMegaBytes, params string[] hierarchicalDirectories)
+        public void SetFileUtilConfig(string acceptedFileExtensions, double acceptedFileLengthInMegaBytes, params string[] hierarchicalDirectories)
         {
             _fileUtil?.SetConfig(acceptedFileExtensions, acceptedFileLengthInMegaBytes, hierarchicalDirectories);
         }
 
-        public virtual void SetFileUtilConfig(IFormFile formFile)
+        public void SetFileUtilConfig(IFormFile formFile)
         {
             _fileUtil?.SetConfig(formFile);
         }
@@ -226,11 +229,11 @@ namespace AppCoreLite.Services.Bases
             property = _reflectionUtil.GetProperties<IModifiedBy>()?[3];
             _updatedBy = _reflectionUtil.GetProperties<T>()?.FirstOrDefault(pm => pm.Name == property?.Name)?.Name;
             _guid = _reflectionUtil.GetProperties<Record>()?[1]?.Name;
-            property = _reflectionUtil.GetProperties<IFile>()?[0];
+            property = _reflectionUtil.GetProperties<IRecordFile>()?[0];
             _fileData = _reflectionUtil.GetProperties<T>()?.FirstOrDefault(pm => pm.Name == property?.Name)?.Name;
-            property = _reflectionUtil.GetProperties<IFile>()?[1];
+            property = _reflectionUtil.GetProperties<IRecordFile>()?[1];
             _fileContent = _reflectionUtil.GetProperties<T>()?.FirstOrDefault(pm => pm.Name == property?.Name)?.Name;
-            property = _reflectionUtil.GetProperties<IFile>()?[2];
+            property = _reflectionUtil.GetProperties<IRecordFile>()?[2];
             _filePath = _reflectionUtil.GetProperties<T>()?.FirstOrDefault(pm => pm.Name == property?.Name)?.Name;
         }
     }

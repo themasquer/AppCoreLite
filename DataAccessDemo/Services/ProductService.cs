@@ -11,16 +11,16 @@ namespace DataAccessDemo.Services
 {
     public class ProductServiceBase : Service<Product, ProductModel>
     {
-        public ProductServiceBase(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, FileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public ProductServiceBase(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
         {
         }
     }
 
     public class ProductService : ProductServiceBase
     {
-        public ProductService(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, FileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public ProductService(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
         {
-            SetMapper(new MapperConfiguration(c => c.AddProfile<ProductProfile>()));
+            SetConfig(new MapperConfiguration(c => c.AddProfile<ProductProfile>()));
         }
 
         public override Result Add(ProductModel model, bool save = true, bool trim = true)

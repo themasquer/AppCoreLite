@@ -18,7 +18,7 @@ namespace AppCoreLite.Utils.Bases
             _language = Languages.Turkish;
         }
 
-        public virtual void SetConfig(Languages language)
+        public void SetConfig(Languages language)
         {
             _language = language;
         }

@@ -5,13 +5,13 @@ namespace AppCoreLite.Configs
 {
     public class PageOrderFilterViewConfig : IConfig
     {
-        public virtual string Filter { get; set; }
-        public virtual string Search { get; set; }
-        public virtual string Clear { get; set; }
-        public virtual string PageNumber { get; set; }
-        public virtual string RecordsCount { get; set; }
-        public virtual string Order { get; set; }
-        public virtual string Ascending { get; set; }
+        public string Filter { get; set; }
+        public string Search { get; set; }
+        public string Clear { get; set; }
+        public string PageNumber { get; set; }
+        public string RecordsCount { get; set; }
+        public string Order { get; set; }
+        public string Ascending { get; set; }
 
         public PageOrderFilterViewConfig()
         {
