@@ -1,0 +1,112 @@
+﻿@model ProductsIndexViewModel
+    
+@{
+	string message;
+	string color;
+}
+@if (ViewBag.Message != null)
+{
+	message = ViewBag.Message.ToString();
+	color = "success";
+	if (message.EndsWith("!"))
+	{
+		color = "danger";
+	}
+	<p class="text-@color">
+		@message
+	</p>
+}
+@if (TempData["Message"] != null)
+{
+	message = TempData["Message"].ToString();
+	color = "success";
+	if (message.EndsWith("!"))
+	{
+		color = "danger";
+	}
+	<p class="text-@color">
+		@message
+	</p>
+}
+    
+@{
+    ViewData["Title"] = "Ürünler";
+}
+
+<form asp-action="Index" id="form" autocomplete="off">
+
+	<h1>@ViewData["Title"]</h1>
+
+	<p>
+		<a asp-action="Create">Yeni</a>
+	</p>
+
+	<partial name="_PageOrderFilter" model="Model" />
+
+	@if (Model.Products != null && Model.Products.Count() > 0)
+	{
+		<table class="table table-striped table-bordered">
+			<thead>
+					<tr>
+						<th>
+							@Html.DisplayNameFor(model => model.Products.FirstOrDefault().Name)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Products.FirstOrDefault().CategoryDisplay)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Products.FirstOrDefault().UnitPriceDisplay)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Products.FirstOrDefault().StockAmount)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Products.FirstOrDefault().ExpirationDateDisplay)
+						</th>
+						<th style="width: 13%;">
+							@Html.DisplayNameFor(model => model.Products.FirstOrDefault().FileContent)
+						</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model.Products)
+					{
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.Name)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.CategoryDisplay)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.UnitPriceDisplay)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.StockAmount)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.ExpirationDateDisplay)
+							</td>
+							<td>
+								@if (!string.IsNullOrWhiteSpace(item.FileContent))
+								{
+									<img src="@item.FileContent" class="img-thumbnail "/>
+								}
+							</td>
+							<td>
+								<a asp-action="Details" asp-route-id="@item.Id">Detay</a>&nbsp;|&nbsp;
+								<a asp-action="Edit" asp-route-id="@item.Id">Düzenle</a>&nbsp;|&nbsp;
+								<a href="#" class="deleteItem" onclick="deleteItem(@item.Id);">Sil</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+		</table>
+	}
+</form>
+
+@section Scripts {
+	<script src="~/js/PageOrderFilter.js"></script>
+	<partial name="_AlertifyJS" />
+}

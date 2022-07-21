@@ -1,0 +1,6 @@
+﻿"ConnectionStrings": {
+    "Db": "server=SERVER;database=DATABASE;user id=USERID;password=PASSWORD;multipleactiveresultsets=true"
+},
+"AppSettings": {
+    
+},

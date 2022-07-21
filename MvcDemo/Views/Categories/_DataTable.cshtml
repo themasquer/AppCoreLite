@@ -1,0 +1,25 @@
+﻿<link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+<script src="~/js/DataTable.js"></script>
+
+<script>
+	// Example usage for JSON data: name, description
+	var columns = [
+		{ data: "name" }, // 0
+		{ data: "productCountDisplay" }, // 1
+		{ data: "createDateDisplay" }, // 2
+		{ data: "createdBy" }, // 3
+		{ data: "updateDateDisplay" }, // 4
+		{ data: "updatedBy" }, // 5
+		{ data: "operationLinks" } // 6
+	];
+	var columnDefs = [
+		// if query is used, conversion to string of DateTime values causes exception during filtering!
+		{ orderable: true, searchable: false, targets: [2] }, 
+		{ orderable: true, searchable: false, targets: [4] },
+
+		{ orderable: false, searchable: false, targets: [6] }
+	];
+	var url = "@ViewContext.RouteData.Values["Controller"].ToString()/BindDataTable";
+	BindDataTable(url, columns, columnDefs, "/js/DataTableTR.json", "Tüm");
+</script>
