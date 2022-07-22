@@ -1,0 +1,24 @@
+﻿@model IEnumerable<CategoryModel>
+
+<style>
+    a.acategory {
+        text-decoration: none;
+        color: #0026ff;
+    }
+    a.acategory:hover {
+        color: #ff006e;
+    }
+</style>
+
+<hr />
+<ul class="navbar-nav">
+    <li>
+        <a asp-action="Index" asp-controller="ProductsReport" asp-area="" class="acategory">All Categories</a>
+    </li>
+    @foreach (var category in Model)
+    {
+        <li>
+            <a asp-action="Index" asp-controller="ProductsReport" asp-area="" asp-route-CategoryId="@category.Id" class="acategory">@category.Name</a>
+        </li>
+    }
+</ul>

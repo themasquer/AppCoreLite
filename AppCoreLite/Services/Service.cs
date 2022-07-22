@@ -4,7 +4,7 @@ using AppCoreLite.Records.Bases;
 using AppCoreLite.Results;
 using AppCoreLite.Results.Bases;
 using AppCoreLite.Services.Bases;
-using AppCoreLite.Utils.Bases.Service;
+using AppCoreLite.Utilities.Bases;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using LinqKit;
@@ -35,7 +35,7 @@ namespace AppCoreLite.Services
         {
             _mapperConfiguration = mapperConfiguration;
             _mapper = new Mapper(mapperConfiguration);
-            base.SetConfig(language);
+            base.Set(language);
         }
 
         public virtual IQueryable<TModel> Query(params Expression<Func<TEntity, object?>>[] navigationPropertyPaths)
@@ -87,7 +87,7 @@ namespace AppCoreLite.Services
             }
             if (pageOrderFilter != null)
             {
-                var propertyForOrdering = GetProperty(pageOrderFilter.OrderExpression);
+                var propertyForOrdering = GetOrderingProperty(pageOrderFilter.OrderExpression);
                 if (propertyForOrdering != null)
                 {
                     query = pageOrderFilter.IsOrderDirectionAscending ? query.OrderBy(_reflectionUtil.GetOrderExpression<TModel>(propertyForOrdering.Name))
@@ -138,7 +138,7 @@ namespace AppCoreLite.Services
             }
             if (pageOrderFilter != null)
             {
-                var propertyForOrdering = GetProperty(pageOrderFilter.OrderExpression);
+                var propertyForOrdering = GetOrderingProperty(pageOrderFilter.OrderExpression);
                 if (propertyForOrdering != null)
                 {
                     query = pageOrderFilter.IsOrderDirectionAscending ? query.OrderBy(_reflectionUtil.GetOrderExpression<TModel>(propertyForOrdering.Name))

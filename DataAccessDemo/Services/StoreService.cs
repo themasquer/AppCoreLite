@@ -1,7 +1,7 @@
 ﻿using AppCoreLite.Results;
 using AppCoreLite.Results.Bases;
 using AppCoreLite.Services;
-using AppCoreLite.Utils.Bases.Service;
+using AppCoreLite.Utilities.Bases;
 using AutoMapper;
 using DataAccessDemo.Contexts;
 using DataAccessDemo.Entities;

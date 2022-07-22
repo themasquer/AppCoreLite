@@ -1,10 +1,10 @@
 ﻿#nullable disable
-using AppCoreLite.Utils.Bases;
+using AppCoreLite.Managers.Bases;
 
-namespace AppCoreLite.Utils
+namespace AppCoreLite.Managers
 {
     // Reference: https://github.com/DavidSuescunPelegay/jQuery-datatable-server-side-net-core
-    public class DataTableUtil : DataTableUtilBase
+    public class DataTableManager : DataTableManagerBase
     {
     }
 }

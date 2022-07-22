@@ -8,12 +8,21 @@
 
   <ItemGroup>
     <None Remove="AspNet\Mvc\Templates\PageOrderFilter\_PageOrderFilter.cshtmlt" />
+    <None Remove="AspNet\Mvc\Templates\Report\_ReportFilter.cshtmlt" />
     <None Remove="AspNet\Mvc\Templates\_Ajax.cshtmlt" />
     <None Remove="AspNet\Mvc\Templates\_AlertifyJS.cshtmlt" />
     <None Remove="AspNet\Mvc\Templates\_Select2.cshtmlt" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="AspNet\Mvc\Templates\PageOrderFilter\_PageOrder.cshtmlt">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="AspNet\Mvc\Templates\Report\_ReportFilter.cshtmlt">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="AspNet\Mvc\Templates\_Ajax.cshtmlt">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -22,7 +31,7 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="AspNet\Mvc\Templates\_BootstrapDatePicker.cshtmlt">
+    <Content Include="AspNet\Mvc\Templates\_DatePicker.cshtmlt">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

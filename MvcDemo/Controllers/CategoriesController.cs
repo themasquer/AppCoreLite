@@ -1,6 +1,6 @@
 ﻿#nullable disable
+using AppCoreLite.Managers.Bases;
 using AppCoreLite.Models;
-using AppCoreLite.Utils.Bases;
 using DataAccessDemo.Entities;
 using DataAccessDemo.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -15,12 +15,12 @@ namespace MvcDemo.Controllers
     {
         // Add service injections here
         private readonly CategoryServiceBase _categoryService;
-        private readonly DataTableUtilBase _dataTableUtil;
+        private readonly DataTableManagerBase _dataTableManager;
 
-        public CategoriesController(CategoryServiceBase categoryService, DataTableUtilBase dataTableUtil)
+        public CategoriesController(CategoryServiceBase categoryService, DataTableManagerBase dataTableManager)
         {
             _categoryService = categoryService;
-            _dataTableUtil = dataTableUtil;
+            _dataTableManager = dataTableManager;
         }
 
         // GET: Categories
@@ -43,14 +43,14 @@ namespace MvcDemo.Controllers
                     (c.CreatedBy != null && c.CreatedBy.ToLower().Contains(searchValue)) ||
                     (c.UpdatedBy != null && c.UpdatedBy.ToLower().Contains(searchValue));
             }
-            var dataTable = await _dataTableUtil.Bind(dtParameters, query, predicate);
+            var dataTable = await _dataTableManager.Bind(dtParameters, query, predicate);
             var dataTableOperations = new DtOperationsModel()
             {
                 DetailsUrl = "/Categories/Details",
                 EditUrl = "/Categories/Edit",
                 DeleteUrl = "/Categories/Delete"
             };
-            _dataTableUtil.AddOperations(dataTable, dataTableOperations, true);
+            _dataTableManager.AddOperations(dataTable, dataTableOperations, true);
             return Json(dataTable);
         }
 

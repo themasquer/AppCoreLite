@@ -1,24 +1,26 @@
 ﻿#nullable disable
+using AppCoreLite.Configs.Bases;
 using AppCoreLite.Enums;
 using AppCoreLite.Models;
+using AppCoreLite.Utilities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace AppCoreLite.Utils.Bases
+namespace AppCoreLite.Managers.Bases
 {
     // Reference: https://github.com/DavidSuescunPelegay/jQuery-datatable-server-side-net-core
-    public abstract class DataTableUtilBase
+    public abstract class DataTableManagerBase : IConfig
     {
         private readonly ReflectionUtility _reflectionUtility;
         private Languages _language;
 
-        protected DataTableUtilBase()
+        protected DataTableManagerBase()
         {
             _reflectionUtility = new ReflectionUtility();
             _language = Languages.Turkish;
         }
 
-        public void SetConfig(Languages language)
+        public void Set(Languages language)
         {
             _language = language;
         }

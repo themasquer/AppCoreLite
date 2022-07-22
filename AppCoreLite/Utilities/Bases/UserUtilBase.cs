@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
-namespace AppCoreLite.Utils.Bases.Service
+namespace AppCoreLite.Utilities.Bases
 {
     public abstract class UserUtilBase
     {

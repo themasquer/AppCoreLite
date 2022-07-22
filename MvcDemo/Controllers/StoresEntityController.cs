@@ -20,8 +20,8 @@ namespace MvcDemo.Controllers
         {
             _storeService = storeService;
             _productService = productService;
-            _storeService.SetConfig(Languages.English);
-            _productService.SetConfig(Languages.English);
+            _storeService.Set(Languages.English);
+            _productService.Set(Languages.English);
         }
 
         // GET: StoresEntity

@@ -1,9 +1,10 @@
 ﻿using AppCoreLite.Configs;
+using AppCoreLite.Configs.Bases;
 using AppCoreLite.Enums;
 using AppCoreLite.Models;
 using AppCoreLite.Records.Bases;
-using AppCoreLite.Utils;
-using AppCoreLite.Utils.Bases.Service;
+using AppCoreLite.Utilities;
+using AppCoreLite.Utilities.Bases;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +13,7 @@ namespace AppCoreLite.Services.Bases
     /// <summary>
     /// Base service class that includes common fields, properties and methods for its sub classes EntityService and Service.
     /// </summary>
-    public abstract class ServiceBase<T> : IDisposable where T : Record, new()
+    public abstract class ServiceBase<T> : IDisposable, IConfig where T : Record, new()
     {
         protected readonly DbContext _db;
         protected readonly RecordFileUtilBase? _fileUtil;
@@ -75,19 +76,19 @@ namespace AppCoreLite.Services.Bases
             SetEntityInterfacePropertyNames();
         }
 
-        public void SetConfig(Languages language)
+        public void Set(Languages language)
         {
             Config.Set(language);
         }
 
-        public void SetFileUtilConfig(string acceptedFileExtensions, double acceptedFileLengthInMegaBytes, params string[] hierarchicalDirectories)
+        public void Set(string acceptedFileExtensions, double acceptedFileLengthInMegaBytes, params string[] hierarchicalDirectories)
         {
-            _fileUtil?.SetConfig(acceptedFileExtensions, acceptedFileLengthInMegaBytes, hierarchicalDirectories);
+            _fileUtil?.Set(acceptedFileExtensions, acceptedFileLengthInMegaBytes, hierarchicalDirectories);
         }
 
-        public void SetFileUtilConfig(IFormFile formFile)
+        public void Set(IFormFile formFile)
         {
-            _fileUtil?.SetConfig(formFile);
+            _fileUtil?.Set(formFile);
         }
 
         public virtual int Save()
@@ -188,7 +189,7 @@ namespace AppCoreLite.Services.Bases
                 {
                     _db.Set<T>().Update(entity);
                 }
-                _fileUtil?.SetConfig(true);
+                _fileUtil?.Set(true);
                 Save();
             }
         }
@@ -204,7 +205,7 @@ namespace AppCoreLite.Services.Bases
             GC.SuppressFinalize(this);
         }
 
-        protected Property? GetProperty(string orderExpression)
+        protected Property? GetOrderingProperty(string orderExpression)
         {
             Property? propertyForOrdering = _propertiesForOrdering?.FirstOrDefault();
             if (!string.IsNullOrWhiteSpace(orderExpression))

@@ -51,4 +51,14 @@
 		$(".isorderdirectionascending").prop("checked", isAscending);
 		$("#form").submit();
 	});
+
+	$(".input").blur(function () {
+		$(".pagenumber").prop("disabled", true);
+		$(".pagenumber").val("1");
+	});
+	$(".search").click(function (event) {
+		event.preventDefault();
+		$(".pagenumber").val("1");
+		$("#form").submit();
+	});
 });

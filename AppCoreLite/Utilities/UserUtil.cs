@@ -1,7 +1,7 @@
-﻿using AppCoreLite.Utils.Bases.Service;
+﻿using AppCoreLite.Utilities.Bases;
 using Microsoft.AspNetCore.Http;
 
-namespace AppCoreLite.Utils.Service
+namespace AppCoreLite.Utilities
 {
     public class UserUtil : UserUtilBase
     {

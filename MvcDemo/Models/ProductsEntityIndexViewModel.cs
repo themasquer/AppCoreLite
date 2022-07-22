@@ -1,4 +1,4 @@
-﻿using AppCoreLite.Models.ViewModels;
+﻿using AppCoreLite.ViewModels;
 using DataAccessDemo.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 

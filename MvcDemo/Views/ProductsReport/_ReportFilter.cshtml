@@ -1,0 +1,57 @@
+﻿@model ProductsReportIndexViewModel
+
+<hr />
+<div class="row">
+	<div class="col-2">
+		<label asp-for="CategoryId"></label>
+	</div>
+	<div class="col-4">
+		<select asp-for="CategoryId" asp-items="Model.Categories" class="form-control input select2">
+			<option value="">-- All --</option>
+		</select>
+	</div>
+	<div class="col-2">
+		<label asp-for="StoreIds"></label>
+	</div>
+	<div class="col-4">
+		<select multiple asp-for="StoreIds" asp-items="Model.Stores" class="form-control input select2"></select>
+	</div>
+</div>
+<div class="row" style="padding-top: 30px;">
+	<div class="col-2">
+		<label asp-for="UnitPriceMinimum"></label>
+	</div>
+	<div class="col-4">
+		<div class="input-group">
+			<input asp-for="UnitPriceMinimum" class="form-control input" />
+			<span class="input-group-text">-</span>
+			<input asp-for="UnitPriceMaximum" class="form-control input" />
+		</div>
+	</div>
+	<div class="col-2">
+		<label asp-for="ExpirationDateMinimum"></label>
+	</div>
+	<div class="col-4">
+		<div class="input-group">
+			<input asp-for="ExpirationDateMinimum" class="form-control expirationdate input datepicker" type="text" />
+			<span class="input-group-text">-</span>
+			<input asp-for="ExpirationDateMaximum" class="form-control expirationdate input datepicker" type="text" />
+		</div>
+	</div>
+</div>
+<div class="row" style="padding-top: 30px;">
+	<div class="col-2">
+		<label asp-for="ProductName"></label>
+	</div>
+	<div class="col-4">
+		<input asp-for="ProductName" class="form-control input" />
+	</div>
+</div>
+<hr />
+<div class="row">
+	<div class="col-12">
+		<a href="" class="btn btn-dark search">Search</a>
+		&nbsp;&nbsp;&nbsp;
+		<a asp-action="Index" class="btn btn-outline-dark">Clear</a>
+	</div>
+</div>

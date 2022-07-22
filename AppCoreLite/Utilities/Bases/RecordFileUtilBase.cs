@@ -2,7 +2,7 @@
 using AppCoreLite.Records.Bases;
 using Microsoft.AspNetCore.Http;
 
-namespace AppCoreLite.Utils.Bases.Service
+namespace AppCoreLite.Utilities.Bases
 {
     public abstract class RecordFileUtilBase
     {
@@ -28,19 +28,19 @@ namespace AppCoreLite.Utils.Bases.Service
             _isFileDeleted = false;
         }
 
-        public void SetConfig(string? acceptedFileExtensions = null, double? acceptedFileLengthInMegaBytes = null, params string[] hierarchicalDirectories)
+        public void Set(string? acceptedFileExtensions = null, double? acceptedFileLengthInMegaBytes = null, params string[] hierarchicalDirectories)
         {
             _acceptedFileExtensions = acceptedFileExtensions;
             _acceptedFileLengthInMegaBytes = acceptedFileLengthInMegaBytes;
             _hierarchicalDirectories = hierarchicalDirectories.Length == 0 ? null : hierarchicalDirectories.ToList();
         }
 
-        public void SetConfig(IFormFile formFile)
+        public void Set(IFormFile formFile)
         {
             _formFile = formFile;
         }
 
-        public void SetConfig(bool isFileDeleted)
+        public void Set(bool isFileDeleted)
         {
             _isFileDeleted = isFileDeleted;
         }
@@ -126,8 +126,8 @@ namespace AppCoreLite.Utils.Bases.Service
                 List<string> filePaths = Directory.GetFiles(CreatePath()).Where(file => ids.Select(id => id.ToString()).Contains(Path.GetFileNameWithoutExtension(file))).ToList();
                 foreach (string filePath in filePaths)
                 {
-                    if (System.IO.File.Exists(filePath))
-                        System.IO.File.Delete(filePath);
+                    if (File.Exists(filePath))
+                        File.Delete(filePath);
                 }
             }
         }

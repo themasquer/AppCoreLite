@@ -1,6 +1,6 @@
 ﻿using AppCoreLite.Attributes;
 using AppCoreLite.Records.Bases;
-using AppCoreLite.Utils.Service;
+using AppCoreLite.Utilities;
 using AutoMapper;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;

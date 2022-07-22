@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace AppCoreLite.Utils
+namespace AppCoreLite.Utilities
 {
     public class ReflectionUtility
     {

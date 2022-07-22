@@ -1,10 +1,12 @@
 ﻿using AppCoreLite.Configs;
+using AppCoreLite.Configs.Bases;
 using AppCoreLite.Enums;
+using AppCoreLite.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace AppCoreLite.Models.ViewModels
+namespace AppCoreLite.ViewModels
 {
-	public class PageOrderFilterViewModel
+    public class PageOrderFilterViewModel : IConfig
     {
         public PageOrderFilter PageOrderFilter { get; set; }
         public SelectList PageNumbers { get; set; }
@@ -20,7 +22,7 @@ namespace AppCoreLite.Models.ViewModels
             Config = new PageOrderFilterViewConfig();
         }
 
-        public void SetConfig(Languages language)
+        public void Set(Languages language)
         {
             Config.Set(language);
         }

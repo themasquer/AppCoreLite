@@ -4,7 +4,7 @@ using AppCoreLite.Records.Bases;
 using AppCoreLite.Results;
 using AppCoreLite.Results.Bases;
 using AppCoreLite.Services.Bases;
-using AppCoreLite.Utils.Bases.Service;
+using AppCoreLite.Utilities.Bases;
 using LinqKit;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -71,7 +71,7 @@ namespace AppCoreLite.Services
             }
             if (pageOrderFilter != null)
             {
-                var propertyForOrdering = GetProperty(pageOrderFilter.OrderExpression);
+                var propertyForOrdering = GetOrderingProperty(pageOrderFilter.OrderExpression);
                 if (propertyForOrdering != null)
                 {
                     query = pageOrderFilter.IsOrderDirectionAscending ? query.OrderBy(_reflectionUtil.GetOrderExpression<T>(propertyForOrdering.Name))
@@ -122,7 +122,7 @@ namespace AppCoreLite.Services
             }
             if (pageOrderFilter != null)
             {
-                var propertyForOrdering = GetProperty(pageOrderFilter.OrderExpression);
+                var propertyForOrdering = GetOrderingProperty(pageOrderFilter.OrderExpression);
                 if (propertyForOrdering != null)
                 {
                     query = pageOrderFilter.IsOrderDirectionAscending ? query.OrderBy(_reflectionUtil.GetOrderExpression<T>(propertyForOrdering.Name))

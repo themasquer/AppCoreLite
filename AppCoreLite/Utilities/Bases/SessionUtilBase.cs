@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using AppCoreLite.Extensions;
 
-namespace AppCoreLite.Utils.Bases.Service
+namespace AppCoreLite.Utilities.Bases
 {
     public abstract class SessionUtilBase
     {

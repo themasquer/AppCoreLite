@@ -24,17 +24,17 @@ namespace MvcDemo.Controllers
             _productService = productService;
             _categoryService = catgoryService;
             _storeService = storeService;
-            _productService.SetConfig(Languages.English);
-            _categoryService.SetConfig(Languages.English);
-            _storeService.SetConfig(Languages.English);
-            _productService.SetFileUtilConfig(AppSettings.ImageExtensions, AppSettings.ImageMaximumLength);
+            _productService.Set(Languages.English);
+            _categoryService.Set(Languages.English);
+            _storeService.Set(Languages.English);
+            _productService.Set(AppSettings.ImageExtensions, AppSettings.ImageMaximumLength);
         }
 
         // GET: Products
         [AllowAnonymous]
         public IActionResult Index(ProductsEntityIndexViewModel viewModel, bool usePageOrderFilterSession = false)
         {
-            viewModel.SetConfig(Languages.English);
+            viewModel.Set(Languages.English);
             List<ProductEntity> productList = _productService.GetList(viewModel.PageOrderFilter, usePageOrderFilterSession);
             ViewBag.Message = _productService.TotalRecordsCount;
             viewModel.Products = productList;
@@ -76,7 +76,7 @@ namespace MvcDemo.Controllers
         {
             if (ModelState.IsValid)
             {
-                _productService.SetFileUtilConfig(image);
+                _productService.Set(image);
                 var result = _productService.Add(product);
                 if (result.IsSuccessful)
                 {
@@ -121,7 +121,7 @@ namespace MvcDemo.Controllers
         {
             if (ModelState.IsValid)
             {
-                _productService.SetFileUtilConfig(image);
+                _productService.Set(image);
                 var result = _productService.Update(product);
                 if (result.IsSuccessful)
                 {

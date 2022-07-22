@@ -22,7 +22,7 @@ namespace MvcDemo.Controllers
             _productService = productService;
             _categoryService = categoryService;
             _storeService = storeService;
-            _productService.SetFileUtilConfig(AppSettings.ImageExtensions, AppSettings.ImageMaximumLength, "wwwroot", "files", "products");
+            _productService.Set(AppSettings.ImageExtensions, AppSettings.ImageMaximumLength, "wwwroot", "files", "products");
         }
 
         // GET: Products
@@ -70,7 +70,7 @@ namespace MvcDemo.Controllers
         {
             if (ModelState.IsValid)
             {
-                _productService.SetFileUtilConfig(image);
+                _productService.Set(image);
                 var result = _productService.Add(product);
                 if (result.IsSuccessful)
                 {
@@ -115,7 +115,7 @@ namespace MvcDemo.Controllers
         {
             if (ModelState.IsValid)
             {
-                _productService.SetFileUtilConfig(image);
+                _productService.Set(image);
                 var result = _productService.Update(product);
                 if (result.IsSuccessful)
                 {
