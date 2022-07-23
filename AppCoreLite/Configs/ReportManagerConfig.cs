@@ -13,8 +13,6 @@ namespace AppCoreLite.Configs
         public string FileNameWithoutExtension { get; set; }
         public string ExcelWorksheetName { get; set; }
         public bool IsExcelLicenseCommercial { get; set; }
-        public string ExcelSuccessMessage { get; set; }
-        public string ExcelErrorMessage { get; set; }
 
         public ReportManagerConfig()
         {
@@ -26,8 +24,6 @@ namespace AppCoreLite.Configs
             FileNameWithoutExtension = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss").Replace("/", "").Replace(" ", "_").Replace(":", "") + "_Rapor";
             ExcelWorksheetName = "Sayfa1";
             IsExcelLicenseCommercial = false;
-            ExcelSuccessMessage = "Rapor başarıyla oluşturuldu.";
-            ExcelErrorMessage = "Rapor oluşturulamadı!";
         }
 
         public void Set(Languages language)
@@ -43,8 +39,6 @@ namespace AppCoreLite.Configs
             else
                 FileNameWithoutExtension += "_Report";
             ExcelWorksheetName = language == Languages.Turkish ? "Sayfa1" : "Sheet1";
-            ExcelSuccessMessage = language == Languages.Turkish ? "Rapor başarıyla oluşturuldu." : "Report generated successfully.";
-            ExcelErrorMessage = language == Languages.Turkish ? "Rapor oluşturulamadı!" : "Report could not be generated!";
         }
 
         public void Set(bool isExcelLicenseCommercial)
