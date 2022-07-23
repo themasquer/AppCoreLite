@@ -8,10 +8,12 @@ namespace DataAccessDemo.Models
     {
         [DisplayName("Category Name")]
         [OrderTag]
+        [ExportTag]
         public string? CategoryName { get; set; }
 
         [DisplayName("Product Name")]
         [OrderTag]
+        [ExportTag]
         public string? ProductName { get; set; }
 
         public string? ProductDescription { get; set; }
@@ -19,17 +21,21 @@ namespace DataAccessDemo.Models
         public string? CategoryDescription { get; set; }
 
         [DisplayName("Unit Price")]
+        [ExportTag]
         public string? UnitPriceDisplay { get; set; }
 
         [DisplayName("Stock Amount")]
         [OrderTag]
+        [ExportTag]
         public int? StockAmount { get; set; }
 
         [DisplayName("Expiration Date")]
+        [ExportTag]
         public string? ExpirationDateDisplay { get; set; }
 
         [DisplayName("Store Name")]
         [OrderTag]
+        [ExportTag]
         public string? StoreName { get; set; }
 
 

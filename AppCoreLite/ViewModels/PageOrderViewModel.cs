@@ -13,7 +13,7 @@ namespace AppCoreLite.ViewModels
         public SelectList RecordsPerPageCounts { get; set; }
         public SelectList OrderExpressions { get; set; }
 
-        public PageOrderViewConfig Config { get; set; }
+        public PageOrderViewConfig Config { get; }
 
         public PageOrderViewModel()
         {

@@ -36,7 +36,7 @@ namespace AppCoreLite.Services.Bases
         private string? _fileContent;
         private string? _filePath;
 
-        public ServiceConfig Config { get; set; }
+        public ServiceConfig Config { get; }
         public List<int> PageNumbers
         {
             get

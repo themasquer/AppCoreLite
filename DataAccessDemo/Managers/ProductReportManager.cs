@@ -2,19 +2,20 @@
 using DataAccessDemo.Contexts;
 using DataAccessDemo.Entities;
 using DataAccessDemo.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace DataAccessDemo.Managers
 {
     public abstract class ProductReportManagerBase : ReportManagerBase<ProductReport>
     {
-        protected ProductReportManagerBase(Db db) : base(db)
+        protected ProductReportManagerBase(Db db, IHttpContextAccessor httpContextAccessor) : base(db, httpContextAccessor)
         {
         }
     }
 
     public class ProductReportManager : ProductReportManagerBase
     {
-        public ProductReportManager(Db db) : base(db)
+        public ProductReportManager(Db db, IHttpContextAccessor httpContextAccessor) : base(db, httpContextAccessor)
         {
         }
 

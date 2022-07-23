@@ -3,8 +3,12 @@ using AppCoreLite.Configs.Bases;
 using AppCoreLite.Enums;
 using AppCoreLite.Models;
 using AppCoreLite.Models.Bases;
+using AppCoreLite.Results;
+using AppCoreLite.Results.Bases;
 using AppCoreLite.Utilities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 using System.Linq.Expressions;
 
 namespace AppCoreLite.Managers.Bases
@@ -15,13 +19,14 @@ namespace AppCoreLite.Managers.Bases
     public abstract class ReportManagerBase<TReport> : IDisposable, IConfig where TReport : ReportBase, new()
     {
         protected readonly DbContext _db;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         protected ReflectionUtility _reflectionUtil;
         protected PageOrder? _pageOrder;
         protected List<Property>? _propertiesForOrdering;
         protected List<Property>? _propertiesForReporting;
 
-        public ReportManagerConfig Config { get; set; }
+        public ReportManagerConfig Config { get; }
         public List<int> PageNumbers
         {
             get
@@ -49,9 +54,10 @@ namespace AppCoreLite.Managers.Bases
         public List<string>? OrderExpressions => _propertiesForOrdering?.Select(pm => !string.IsNullOrWhiteSpace(pm.DisplayName) ? pm.DisplayName : pm.Name).ToList();
         public string? TotalRecordsCount { get; set; }
 
-        protected ReportManagerBase(DbContext db)
+        protected ReportManagerBase(DbContext db, IHttpContextAccessor httpContextAccessor)
         {
             _db = db;
+            _httpContextAccessor = httpContextAccessor;
             _reflectionUtil = new ReflectionUtility();
             Config = new ReportManagerConfig();
             _pageOrder = null;
@@ -61,6 +67,11 @@ namespace AppCoreLite.Managers.Bases
         public void Set(Languages language)
         {
             Config.Set(language);
+        }
+
+        public void Set(bool isExcelLicenseCommercial)
+        {
+            Config.Set(isExcelLicenseCommercial);
         }
 
         public abstract IQueryable<TReport> Query();
@@ -98,6 +109,21 @@ namespace AppCoreLite.Managers.Bases
             return query.ToList();
         }
 
+        public virtual void ExportToExcel<TModel>(List<TModel> list) where TModel : class, new()
+        {
+            var data = ConvertToByteArrayForExcel(list);
+            if (data != null && data.Length > 0)
+            {
+                _httpContextAccessor.HttpContext.Response.Headers.Clear();
+                _httpContextAccessor.HttpContext.Response.Clear();
+                _httpContextAccessor.HttpContext.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                _httpContextAccessor.HttpContext.Response.Headers.Add("content-length", data.Length.ToString());
+                _httpContextAccessor.HttpContext.Response.Headers.Add("content-disposition", "attachment; filename=\"" + Config.FileNameWithoutExtension + ".xlsx\"");
+                _httpContextAccessor.HttpContext.Response.Body.WriteAsync(data, 0, data.Length);
+                _httpContextAccessor.HttpContext.Response.Body.Flush();
+            }
+        }
+
         public void Dispose()
         {
             _db?.Dispose();
@@ -114,6 +140,25 @@ namespace AppCoreLite.Managers.Bases
                     propertyForOrdering = _propertiesForOrdering?.FirstOrDefault(pm => pm.Name == orderExpression);
             }
             return propertyForOrdering;
+        }
+
+        private byte[]? ConvertToByteArrayForExcel<TModel>(List<TModel> list) where TModel : class, new()
+        {
+            byte[]? data = null;
+            if (list != null && list.Count > 0)
+            {
+                var dataTable = _reflectionUtil.ConvertToDataTable(list);
+                if (dataTable != null && dataTable.Rows.Count > 0)
+                {
+                    ExcelPackage.LicenseContext = Config.IsExcelLicenseCommercial ? LicenseContext.Commercial : LicenseContext.NonCommercial;
+                    ExcelPackage excelPackage = new ExcelPackage();
+                    ExcelWorksheet excelWorksheet = excelPackage.Workbook.Worksheets.Add(Config.ExcelWorksheetName);
+                    excelWorksheet.Cells["A1"].LoadFromDataTable(dataTable, true);
+                    excelWorksheet.Cells["A:AZ"].AutoFitColumns();
+                    data = excelPackage.GetAsByteArray();
+                }
+            }
+            return data;
         }
     }
 }

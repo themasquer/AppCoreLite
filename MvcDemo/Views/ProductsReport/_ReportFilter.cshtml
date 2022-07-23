@@ -53,5 +53,7 @@
 		<a href="" class="btn btn-dark search">Search</a>
 		&nbsp;&nbsp;&nbsp;
 		<a asp-action="Index" class="btn btn-outline-dark">Clear</a>
+		&nbsp;&nbsp;&nbsp;
+		<a href="@ViewContext.RouteData.Values["Controller"].ToString()/Export" class="btn btn-secondary">Export</a>
 	</div>
 </div>

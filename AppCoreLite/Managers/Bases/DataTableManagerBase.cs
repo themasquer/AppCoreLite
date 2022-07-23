@@ -98,8 +98,8 @@ namespace AppCoreLite.Managers.Bases
             }
             foreach (T data in dataTable.Data)
             {
-                var linksProperty = _reflectionUtility.GetProperty<T>(dataTableOperations.OperationLinksProperty);
-                var keyProperty = _reflectionUtility.GetProperty<T>(dataTableOperations.OperationKeyProperty);
+                var linksProperty = _reflectionUtility.GetPropertyInfo<T>(dataTableOperations.OperationLinksProperty);
+                var keyProperty = _reflectionUtility.GetPropertyInfo<T>(dataTableOperations.OperationKeyProperty);
                 if (linksProperty == null || keyProperty == null)
                     break;
                 linksValue = "";

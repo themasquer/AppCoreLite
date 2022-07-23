@@ -14,7 +14,7 @@ namespace AppCoreLite.ViewModels
         public SelectList OrderExpressions { get; set; }
         public string? Filter { get; set; }
 
-        public PageOrderFilterViewConfig Config { get; set; }
+        public PageOrderFilterViewConfig Config { get; }
 
         public PageOrderFilterViewModel()
         {

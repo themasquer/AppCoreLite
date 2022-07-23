@@ -31,6 +31,18 @@ namespace MvcDemo.Controllers
 
         public IActionResult Index(ProductsReportIndexViewModel viewModel)
         {
+            UpdateViewModelList(viewModel);
+            return View(viewModel);
+        }
+
+        public void Export(ProductsReportIndexViewModel viewModel)
+        {
+            UpdateViewModelList(viewModel);
+            _reportManager.ExportToExcel(viewModel.Products);
+        }
+
+        private void UpdateViewModelList(ProductsReportIndexViewModel viewModel)
+        {
             viewModel.Set(Languages.English);
             Expression<Func<ProductReport, bool>>? predicate = p => true;
             if (!string.IsNullOrWhiteSpace(viewModel.ProductName))
@@ -53,9 +65,8 @@ namespace MvcDemo.Controllers
             viewModel.PageNumbers = new SelectList(_reportManager.PageNumbers);
             viewModel.RecordsPerPageCounts = new SelectList(_reportManager.RecordsPerPageCounts);
             viewModel.OrderExpressions = new SelectList(_reportManager.OrderExpressions);
-            viewModel.Categories = new SelectList(_categoryService.GetList(new PageOrderFilter()), "Id", "Name");
-            viewModel.Stores = new MultiSelectList(_storeService.GetList(new PageOrderFilter()), "Id", "Name");
-            return View(viewModel);
+            viewModel.Categories = new SelectList(_categoryService.GetList(new PageOrderFilter()), "Id", "Name", viewModel.CategoryId);
+            viewModel.Stores = new MultiSelectList(_storeService.GetList(new PageOrderFilter()), "Id", "Name", viewModel.StoreIds);
         }
     }
 }
