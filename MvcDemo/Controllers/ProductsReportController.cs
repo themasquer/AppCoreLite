@@ -41,6 +41,11 @@ namespace MvcDemo.Controllers
             _reportManager.ExportToExcel(viewModel.Products);
         }
 
+        public void ExportAll()
+        {
+            _reportManager.ExportToExcel(_reportManager.GetList());
+        }
+
         private void UpdateViewModelList(ProductsReportIndexViewModel viewModel)
         {
             viewModel.Set(Languages.English);

@@ -56,6 +56,7 @@ builder.Services.AddScoped<RecordFileUtilBase, RecordFileUtil>();
 
 builder.Services.AddScoped<DataTableManagerBase, DataTableManager>();
 builder.Services.AddScoped<ProductReportManagerBase, ProductReportManager>();
+builder.Services.AddScoped<StoreExportManagerBase, StoreExportManager>();
 #endregion
 
 #region AppSettings

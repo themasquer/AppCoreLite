@@ -102,7 +102,8 @@
 						<td>
 							<a asp-action="Details" asp-route-id="@item.Id">Detay</a>&nbsp;|&nbsp;
 							<a asp-action="Edit" asp-route-id="@item.Id">Düzenle</a>&nbsp;|&nbsp;
-							<a href="#" class="deleteItem" onclick="deleteItem(@item.Id);">Sil</a>
+							<a href="#" class="deleteItem" onclick="deleteItem(@item.Id);">Sil</a>&nbsp;|&nbsp;
+							<a asp-action="Export">Excel'e Aktar</a>
 						</td>
 					</tr>
 				}

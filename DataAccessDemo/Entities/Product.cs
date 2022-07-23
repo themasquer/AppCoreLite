@@ -74,6 +74,9 @@ namespace DataAccessDemo.Entities
 
         [DisplayName("Son Kullanma Tarihi")]
         public string? ExpirationDateDisplay { get; set; }
+
+        [DisplayName("Birim Fiyatı (Yazı)")]
+        public string? UnitPriceTextDisplay { get; set; }
     }
 
     public class ProductProfile : Profile

@@ -61,4 +61,11 @@
 		$(".pagenumber").val("1");
 		$("#form").submit();
 	});
+	$(".export").click(function (event) {
+		event.preventDefault();
+		var formAction = $("#form").prop("action");
+		$("#form").prop("action", $(this).prop("href"));
+		$("#form").submit();
+		$("#form").prop("action", formAction);
+	});
 });

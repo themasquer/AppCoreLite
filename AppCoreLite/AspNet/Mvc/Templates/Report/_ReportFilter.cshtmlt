@@ -56,6 +56,8 @@
 		&nbsp;&nbsp;&nbsp;
 		<a asp-action="Index" class="btn btn-outline-dark">Clear</a>
 		&nbsp;&nbsp;&nbsp;
-		<a href="@ViewContext.RouteData.Values["Controller"].ToString()/Export" class="btn btn-secondary">Export</a>
+		<a href="@ViewContext.RouteData.Values["Controller"].ToString()/Export" class="btn btn-secondary export">Export According to Page, Order and Filter</a>
+		&nbsp;&nbsp;&nbsp;
+		<a href="@ViewContext.RouteData.Values["Controller"].ToString()/ExportAll" class="btn btn-secondary export">Export All</a>
 	</div>
 </div>

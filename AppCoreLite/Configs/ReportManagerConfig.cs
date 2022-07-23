@@ -10,10 +10,7 @@ namespace AppCoreLite.Configs
         public string RecordNotFound { get; set; }
         public string All { get; set; }
         public List<string> RecordsPerPageCounts { get; set; }
-        public string FileNameWithoutExtension { get; set; }
-        public string ExcelWorksheetName { get; set; }
-        public bool IsExcelLicenseCommercial { get; set; }
-
+        
         public ReportManagerConfig()
         {
             RecordFound = "Kayıt bulundu.";
@@ -21,9 +18,6 @@ namespace AppCoreLite.Configs
             RecordNotFound = "Kayıt bulunamadı.";
             All = "Tümü";
             RecordsPerPageCounts = new List<string>() { "5", "10", "25", "50", "100", All };
-            FileNameWithoutExtension = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss").Replace("/", "").Replace(" ", "_").Replace(":", "") + "_Rapor";
-            ExcelWorksheetName = "Sayfa1";
-            IsExcelLicenseCommercial = false;
         }
 
         public void Set(Languages language)
@@ -33,17 +27,6 @@ namespace AppCoreLite.Configs
             RecordNotFound = language == Languages.Turkish ? "Kayıt bulunamadı." : "Record not found.";
             All = language == Languages.Turkish ? "Tümü" : "All";
             RecordsPerPageCounts[RecordsPerPageCounts.Count - 1] = All;
-            FileNameWithoutExtension = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss").Replace("/", "").Replace(" ", "_").Replace(":", "");
-            if (language == Languages.Turkish)
-                FileNameWithoutExtension += "_Rapor";
-            else
-                FileNameWithoutExtension += "_Report";
-            ExcelWorksheetName = language == Languages.Turkish ? "Sayfa1" : "Sheet1";
-        }
-
-        public void Set(bool isExcelLicenseCommercial)
-        {
-            IsExcelLicenseCommercial = isExcelLicenseCommercial;
         }
     }
 }

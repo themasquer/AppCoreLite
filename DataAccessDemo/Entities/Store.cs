@@ -1,4 +1,5 @@
-﻿using AppCoreLite.Records.Bases;
+﻿using AppCoreLite.Attributes;
+using AppCoreLite.Records.Bases;
 using AutoMapper;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -10,6 +11,7 @@ namespace DataAccessDemo.Entities
         [Required(ErrorMessage = "{0} zorunludur!")]
         [StringLength(150, ErrorMessage = "{0} maksimum {1} karakter olmalıdır!")]
         [DisplayName("Mağaza Adı")]
+        [ExportTag]
         public string? Name { get; set; }
 
         [DisplayName("Sanal")]
@@ -22,29 +24,35 @@ namespace DataAccessDemo.Entities
         public DateTime? CreateDate { get; set; }
 
         [DisplayName("Oluşturan")]
+        [ExportTag]
         public string? CreatedBy { get; set; }
 
         public DateTime? UpdateDate { get; set; }
 
         [DisplayName("Güncelleyen")]
+        [ExportTag]
         public string? UpdatedBy { get; set; }
     }
 
     public class StoreModel : Store
     {
         [DisplayName("Sanal")]
+        [ExportTag]
         public string? IsVirtualDisplay { get; set; }
 
         [DisplayName("Ürünler")]
+        [ExportTag]
         public string? ProductsDisplay { get; set; }
 
         [DisplayName("Ürünler")]
         public List<int>? ProductIds { get; set; }
 
         [DisplayName("Oluşturulma Tarihi")]
+        [ExportTag]
         public string? CreateDateDisplay { get; set; }
 
         [DisplayName("Güncellenme Tarihi")]
+        [ExportTag]
         public string? UpdateDateDisplay { get; set; }
     }
 

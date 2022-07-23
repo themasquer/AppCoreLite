@@ -1,4 +1,5 @@
 ﻿#nullable disable
+using AppCoreLite.Extensions;
 using DataAccessDemo.Entities;
 using DataAccessDemo.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -47,6 +48,8 @@ namespace MvcDemo.Controllers
                 //return NotFound();
                 ViewBag.Message = _productService.Config.RecordNotFound;
             }
+            if (product.UnitPrice.HasValue)
+                product.UnitPriceTextDisplay = product.UnitPrice.Value.ConvertMoneyToString();
             return View(product);
         }
 

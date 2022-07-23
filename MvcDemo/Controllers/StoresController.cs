@@ -1,6 +1,9 @@
 ﻿#nullable disable
+using AppCoreLite.Extensions;
+using AppCoreLite.Managers.Bases;
 using AppCoreLite.Models;
 using DataAccessDemo.Entities;
+using DataAccessDemo.Managers;
 using DataAccessDemo.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +17,13 @@ namespace MvcDemo.Controllers
         // Add service injections here
         private readonly StoreServiceBase _storeService;
         private readonly ProductServiceBase _productService;
+        private readonly StoreExportManagerBase _exportManager;
 
-        public StoresController(StoreServiceBase storeService, ProductServiceBase productService)
+        public StoresController(StoreServiceBase storeService, ProductServiceBase productService, StoreExportManagerBase exportManager)
         {
             _storeService = storeService;
             _productService = productService;
+            _exportManager = exportManager;
         }
 
         // GET: Stores
@@ -117,6 +122,19 @@ namespace MvcDemo.Controllers
             var result = _storeService.Delete(id);
             TempData["Message"] = result.Message; // End message in service with '.' for success, '!' for danger Bootstrap CSS classes to be used in the View
             return RedirectToAction(nameof(Index));
+        }
+
+        public void Export()
+        {
+            var stores = _storeService.GetList();
+            if (stores != null && stores.Count > 0)
+            {
+                for(int i = 0; i < stores.Count; i++)
+                {
+                    stores[i].ProductsDisplay = stores[i].ProductsDisplay.RemoveHtmlTags();
+                }
+            }
+            _exportManager.ExportToExcel(stores);
         }
 	}
 }

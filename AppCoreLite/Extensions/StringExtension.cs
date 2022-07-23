@@ -26,5 +26,39 @@
             }
             return result;
         }
+
+        public static string RemoveHtmlTags(this string value, string brTagSeperator = ", ")
+        {
+            string result = "";
+            if (value != null)
+            {
+                value = value.Replace("&nbsp;", " ").Replace("<br>", brTagSeperator).Replace("<br />", brTagSeperator).Replace("<br/>", brTagSeperator)
+                    .Replace("&amp;", "&").Trim();
+                char[] array = new char[value.Length];
+                int arrayIndex = 0;
+                bool inside = false;
+                for (int i = 0; i < value.Length; i++)
+                {
+                    char let = value[i];
+                    if (let == '<')
+                    {
+                        inside = true;
+                        continue;
+                    }
+                    if (let == '>')
+                    {
+                        inside = false;
+                        continue;
+                    }
+                    if (!inside)
+                    {
+                        array[arrayIndex] = let;
+                        arrayIndex++;
+                    }
+                }
+                result = new string(array, 0, arrayIndex);
+            }
+            return result;
+        }
     }
 }
