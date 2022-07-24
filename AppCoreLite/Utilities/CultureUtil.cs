@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 
-namespace AppCoreLite.Managers
+namespace AppCoreLite.Utilities
 {
-    public class CultureManager : IConfig
+    public class CultureUtil : IConfig
     {
         private readonly List<CultureInfo> _cultures;
 
-        public CultureManager()
+        public CultureUtil()
         {
             _cultures = new List<CultureInfo>() { new CultureInfo("tr-TR") };
         }

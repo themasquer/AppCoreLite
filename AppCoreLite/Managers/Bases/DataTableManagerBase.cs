@@ -11,12 +11,12 @@ namespace AppCoreLite.Managers.Bases
     // Reference: https://github.com/DavidSuescunPelegay/jQuery-datatable-server-side-net-core
     public abstract class DataTableManagerBase : IConfig
     {
-        private readonly ReflectionUtility _reflectionUtility;
+        private readonly ReflectionUtil _reflectionUtility;
         private Languages _language;
 
         protected DataTableManagerBase()
         {
-            _reflectionUtility = new ReflectionUtility();
+            _reflectionUtility = new ReflectionUtil();
             _language = Languages.Turkish;
         }
 

@@ -1,23 +1,22 @@
 using AppCoreLite.Enums;
+using AppCoreLite.Managers;
+using AppCoreLite.Managers.Bases;
 using AppCoreLite.Utilities;
-using AppCoreLite.Utilities.Bases;
 using DataAccessDemo.Contexts;
+using DataAccessDemo.Managers;
 using DataAccessDemo.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MvcDemo.Data;
 using MvcDemo.Settings;
 using Newtonsoft.Json.Converters;
-using AppCoreLite.Managers;
-using AppCoreLite.Managers.Bases;
-using DataAccessDemo.Managers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 #region Culture
-var cultureManager = new CultureManager();
-cultureManager.Set(Languages.English);
-builder.Services.Configure(cultureManager.AddCulture());
+var cultureUtil = new CultureUtil();
+cultureUtil.Set(Languages.English);
+builder.Services.Configure(cultureUtil.AddCulture());
 #endregion
 
 // Add services to the container.
@@ -50,10 +49,6 @@ builder.Services.AddScoped<ProductServiceBase, ProductService>();
 builder.Services.AddScoped<CategoryServiceBase, CategoryService>();
 builder.Services.AddScoped<StoreServiceBase, StoreService>();
 
-builder.Services.AddScoped<UserUtilBase, UserUtil>();
-builder.Services.AddScoped<SessionUtilBase, SessionUtil>();
-builder.Services.AddScoped<RecordFileUtilBase, RecordFileUtil>();
-
 builder.Services.AddScoped<DataTableManagerBase, DataTableManager>();
 builder.Services.AddScoped<ProductReportManagerBase, ProductReportManager>();
 builder.Services.AddScoped<StoreExportManagerBase, StoreExportManager>();
@@ -73,7 +68,7 @@ builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
 var app = builder.Build();
 
 #region Culture
-app.UseRequestLocalization(cultureManager.UseCulture());
+app.UseRequestLocalization(cultureUtil.UseCulture());
 #endregion
 
 // Configure the HTTP request pipeline.

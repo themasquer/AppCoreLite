@@ -51,7 +51,7 @@ namespace AppCoreLite.Managers.Bases
         protected ReportManagerBase(DbContext db, IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
             _db = db;
-            _reflectionUtil = new ReflectionUtility();
+            _reflectionUtil = new ReflectionUtil();
             ReportConfig = new ReportManagerConfig();
             _pageOrder = null;
         }

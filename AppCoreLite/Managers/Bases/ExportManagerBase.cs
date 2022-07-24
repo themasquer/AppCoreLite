@@ -14,14 +14,14 @@ namespace AppCoreLite.Managers.Bases
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        protected ReflectionUtility _reflectionUtil;
+        protected ReflectionUtil _reflectionUtil;
 
         public ExportManagerConfig Config { get; }
 
         protected ExportManagerBase(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
-            _reflectionUtil = new ReflectionUtility();
+            _reflectionUtil = new ReflectionUtil();
             Config = new ExportManagerConfig();
         }
 

@@ -1,24 +1,23 @@
-﻿using AppCoreLite.Extensions;
-using AppCoreLite.Results;
+﻿using AppCoreLite.Results;
 using AppCoreLite.Results.Bases;
 using AppCoreLite.Services;
-using AppCoreLite.Utilities.Bases;
 using AutoMapper;
 using DataAccessDemo.Contexts;
 using DataAccessDemo.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace DataAccessDemo.Services
 {
     public class CategoryServiceBase : Service<Category, CategoryModel>
     {
-        public CategoryServiceBase(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public CategoryServiceBase(Db db, IHttpContextAccessor httpContextAccessor) : base(db, httpContextAccessor)
         {
         }
     }
 
     public class CategoryService : CategoryServiceBase
     {
-        public CategoryService(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public CategoryService(Db db, IHttpContextAccessor httpContextAccessor) : base(db, httpContextAccessor)
         {
             SetConfig(new MapperConfiguration(c => c.AddProfile<CategoryProfile>()));
         }

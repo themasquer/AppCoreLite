@@ -4,10 +4,10 @@ using AppCoreLite.Records.Bases;
 using AppCoreLite.Results;
 using AppCoreLite.Results.Bases;
 using AppCoreLite.Services.Bases;
-using AppCoreLite.Utilities.Bases;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using LinqKit;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -21,7 +21,7 @@ namespace AppCoreLite.Services
         private Mapper? _mapper;
         private MapperConfiguration? _mapperConfiguration;
 
-        public Service(DbContext db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public Service(DbContext db, IHttpContextAccessor httpContextAccessor) : base(db, httpContextAccessor)
         {
             _propertiesForOrdering = _reflectionUtil.GetProperties<TModel>(TagAttributes.Order);
             _propertiesForFiltering = _reflectionUtil.GetProperties<TModel>(TagAttributes.StringFilter);

@@ -1,24 +1,23 @@
-﻿using AppCoreLite.Extensions;
-using AppCoreLite.Results;
+﻿using AppCoreLite.Results;
 using AppCoreLite.Results.Bases;
 using AppCoreLite.Services;
-using AppCoreLite.Utilities.Bases;
 using AutoMapper;
 using DataAccessDemo.Contexts;
 using DataAccessDemo.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace DataAccessDemo.Services
 {
     public class ProductServiceBase : Service<Product, ProductModel>
     {
-        public ProductServiceBase(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public ProductServiceBase(Db db, IHttpContextAccessor httpContextAccessor) : base(db, httpContextAccessor)
         {
         }
     }
 
     public class ProductService : ProductServiceBase
     {
-        public ProductService(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public ProductService(Db db, IHttpContextAccessor httpContextAccessor) : base(db, httpContextAccessor)
         {
             SetConfig(new MapperConfiguration(c => c.AddProfile<ProductProfile>()));
         }

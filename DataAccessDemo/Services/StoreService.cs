@@ -1,23 +1,23 @@
 ﻿using AppCoreLite.Results;
 using AppCoreLite.Results.Bases;
 using AppCoreLite.Services;
-using AppCoreLite.Utilities.Bases;
 using AutoMapper;
 using DataAccessDemo.Contexts;
 using DataAccessDemo.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace DataAccessDemo.Services
 {
     public class StoreServiceBase : Service<Store, StoreModel>
     {
-        public StoreServiceBase(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public StoreServiceBase(Db db, IHttpContextAccessor httpContextAccessor) : base(db, httpContextAccessor)
         {
         }
     }
 
     public class StoreService : StoreServiceBase
     {
-        public StoreService(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public StoreService(Db db, IHttpContextAccessor httpContextAccessor) : base(db, httpContextAccessor)
         {
             SetConfig(new MapperConfiguration(c => c.AddProfile<StoreProfile>()));
         }

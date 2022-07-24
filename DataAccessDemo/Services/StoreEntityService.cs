@@ -1,24 +1,23 @@
-﻿using AppCoreLite.Extensions;
-using AppCoreLite.Results;
+﻿using AppCoreLite.Results;
 using AppCoreLite.Results.Bases;
 using AppCoreLite.Services;
-using AppCoreLite.Utilities.Bases;
 using DataAccessDemo.Contexts;
 using DataAccessDemo.Entities;
+using Microsoft.AspNetCore.Http;
 using System.Linq.Expressions;
 
 namespace DataAccessDemo.Services
 {
     public class StoreEntityServiceBase : EntityService<StoreEntity>
     {
-        public StoreEntityServiceBase(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public StoreEntityServiceBase(Db db, IHttpContextAccessor httpContextAccessor) : base(db, httpContextAccessor)
         {
         }
     }
 
     public class StoreEntityService : StoreEntityServiceBase
     {
-        public StoreEntityService(Db db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil) : base(db, userUtil, sessionUtil, fileUtil)
+        public StoreEntityService(Db db, IHttpContextAccessor httpContextAccessor) : base(db, httpContextAccessor)
         {
         }
 

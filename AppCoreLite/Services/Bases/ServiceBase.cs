@@ -4,7 +4,6 @@ using AppCoreLite.Enums;
 using AppCoreLite.Models;
 using AppCoreLite.Records.Bases;
 using AppCoreLite.Utilities;
-using AppCoreLite.Utilities.Bases;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,16 +15,15 @@ namespace AppCoreLite.Services.Bases
     public abstract class ServiceBase<T> : IDisposable, IConfig where T : Record, new()
     {
         protected readonly DbContext _db;
-        protected readonly RecordFileUtilBase? _fileUtil;
-        protected readonly SessionUtilBase? _sessionUtil;
+        protected readonly RecordFileUtil? _fileUtil;
+        protected readonly SessionUtil? _sessionUtil;
+        protected readonly UserUtil? _userUtil;
 
-        protected ReflectionUtility _reflectionUtil;
+        protected ReflectionUtil _reflectionUtil;
         protected PageOrderFilter? _pageOrderFilter;
         protected List<Property>? _propertiesForOrdering;
         protected List<Property>? _propertiesForFiltering;
         protected string? _isDeleted;
-
-        private readonly UserUtilBase? _userUtil;
         
         private string? _createDate;
         private string? _updateDate;
@@ -64,13 +62,13 @@ namespace AppCoreLite.Services.Bases
         public List<string>? OrderExpressions => _propertiesForOrdering?.Select(pm => !string.IsNullOrWhiteSpace(pm.DisplayName) ? pm.DisplayName : pm.Name).ToList();
         public string? TotalRecordsCount { get; set; }
 
-        protected ServiceBase(DbContext db, UserUtilBase? userUtil, SessionUtilBase? sessionUtil, RecordFileUtilBase? fileUtil)
+        protected ServiceBase(DbContext db, IHttpContextAccessor httpContextAccessor)
         {
             _db = db;
-            _userUtil = userUtil;
-            _sessionUtil = sessionUtil;
-            _fileUtil = fileUtil;
-            _reflectionUtil = new ReflectionUtility();
+            _userUtil = new UserUtil(httpContextAccessor);
+            _sessionUtil = new SessionUtil(httpContextAccessor);
+            _fileUtil = new RecordFileUtil();
+            _reflectionUtil = new ReflectionUtil();
             Config = new ServiceConfig();
             _pageOrderFilter = null;
             SetEntityInterfacePropertyNames();

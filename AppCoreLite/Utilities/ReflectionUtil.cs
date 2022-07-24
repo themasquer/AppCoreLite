@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace AppCoreLite.Utilities
 {
-    public class ReflectionUtility
+    public class ReflectionUtil
     {
         public PropertyInfo? GetPropertyInfo<T>(T instance, string propertyName) where T : class, new()
         {
