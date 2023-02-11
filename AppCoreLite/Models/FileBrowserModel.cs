@@ -4,5 +4,6 @@
     {
         public string? FileName { get; set; }
         public string? FileFolders { get; set; }
+        public bool IsFile { get; set; }
     }
 }

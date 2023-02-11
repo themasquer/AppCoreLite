@@ -47,7 +47,8 @@ namespace AppCoreLite.Managers.Bases
                 var files = Directory.GetFiles(_fullPath).Select(f => new FileBrowserModel()
                 {
                     FileName = Path.GetFileName(f),
-                    FileFolders = _startLink + "\\" + f.Substring(f.IndexOf(_rootPath) + _rootPath.Length)
+                    FileFolders = _startLink + "\\" + f.Substring(f.IndexOf(_rootPath) + _rootPath.Length),
+                    IsFile = true
                 }).ToList();
                 fileBrowserViewModel.Contents?.AddRange(files);
                 fileBrowserViewModel.Title = AddLinks(path ?? _startLink);
@@ -154,7 +155,7 @@ namespace AppCoreLite.Managers.Bases
                     {
                         linkedItem += items[j] + "\\";
                     }
-                    linkedItems.Add("<a style=\"color: #1e1e1e;\" href=\"/" + _controller + "/" + _action + "?path=" + linkedItem.TrimEnd('\\') + "\">" + items[i] + "</a>");
+                    linkedItems.Add("<a style=\"text-decoration: none;\" class=\"text-dark\" href=\"/" + _controller + "/" + _action + "?path=" + linkedItem.TrimEnd('\\') + "\">" + items[i] + "</a>");
                 }
             }
             return string.Join("\\", linkedItems);

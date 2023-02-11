@@ -46,7 +46,18 @@
                     {
                         @foreach (var content in Model.Contents)
                         {
-                            <li><a style="color: #1e1e1e;" asp-action="Index" asp-route-path="@content.FileFolders">@content.FileName</a></li>
+                            <li>
+                                <a style="text-decoration: none;" class="text-dark" asp-action="Index" asp-route-path="@content.FileFolders">
+                                    @if (content.IsFile)
+                                    {
+                                        @content.FileName
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-dark">@content.FileName</span>
+                                    }
+                                </a>
+                            </li>
                         }
                     }
                 </ul>
