@@ -13,7 +13,7 @@ Features:
 ASP.NET MVC Features:
 1) jQuery DataTables support.
 2) Excel exporting.
-3) File explorer to browse text and image files under folders and view their contents. 
+3) File explorer to browse text, image or compressed files under folders and view their contents (for text and image) or download them (for zip).
 4) Bootstrap Modal support.
 
 ASP.NET WebApi Features:
