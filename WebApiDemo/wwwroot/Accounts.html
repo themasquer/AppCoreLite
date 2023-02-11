@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Organization Chart Demo Login</title>
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        div.containerdiv {
+            padding-top: 10px;
+            text-align: center;
+        }
+        div.buttons {
+            text-align: left;
+        }
+        div.labels {
+            text-align: left;
+        }
+        span.error {
+            display: none;
+        }
+        div.loginerror {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container containerdiv">
+        <h3><b>Organization Chart Login</b></h3>
+        <hr />
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-9">
+                <form action="" class="form-horizontal">
+                    <div class="row mb-3 labels">
+                        <label class="control-label col-2">User Name</label>
+                        <div class="col-5">
+                            <input id="username" class="form-control input" type="text" placeholder="Enter User Name">
+                            <small>Admin User Name: admin@admin.com</small>
+                            <span id="usernameerror" class="text-danger error">User Name is required!</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3 labels">
+                        <label class="control-label col-2">Password</label>
+                        <div class="col-5">
+                            <input id="password" class="form-control input" type="password" placeholder="Enter Password">
+                            <small>Admin Password: Admin123!</small>
+                            <span id="passworderror" class="text-danger error">Password is required!</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="control-label col-2"></label>
+                        <div class="col-6 buttons">
+                            <a id="login" class="btn btn-primary">Login</a>
+                            &nbsp;
+                            <a id="clear" class="btn btn-outline-primary">Clear</a>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="control-label col-2"></label>
+                        <div class="col-6 loginerror">
+                            <span id="loginerror" class="text-danger"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        var apiUrl = "/api/Accounts";
+        $(function () {
+            $("#login").click(function (event) {
+                event.preventDefault();
+                if (validateInputs()) {
+                    var user = {
+                        userName: $("#username").val(),
+                        password: $("#password").val()
+                    };
+                    $.ajax({
+                        type: "post",
+                        url: apiUrl + "/Login",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: JSON.stringify(user),
+                        success: function (result) {
+                            localStorage.setItem("token", result.token);
+                            window.location.href = "Units.html";
+                        },
+                        error: function (result) {
+                            $("#loginerror").text(result.responseJSON);
+                            console.log("An error occured during AJAX request: " + result.responseText);
+                        }
+                    });
+                }
+            });
+            $("#clear").click(function (event) {
+                event.preventDefault();
+                $(".input").each(function () {
+                    $(this).val("");
+                });
+                $("#loginerror").text("");
+            });
+        });
+
+        function validateInputs() {
+            $("#usernameerror").hide();
+            $("#passworderror").hide();
+            if ($("#username").val().trim() == "") {
+                $("#usernameerror").show();
+                return false;
+            }
+            if ($("#password").val().trim() == "") {
+                $("#passworderror").show();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

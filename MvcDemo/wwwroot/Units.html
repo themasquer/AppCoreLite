@@ -1,0 +1,239 @@
+﻿<!-- 
+    Main Web Api demo is in WebApiDemo project of this solution. 
+    UnitsController.cs, Units.html and Units.js files in this project are only for MVC demo purpose. 
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Organization Chart Demo</title>
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="lib/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="plugins/jquery-orgchart/jquery.orgchart.css" rel="stylesheet" />
+    <link href="lib/AlertifyJS/css/alertify.min.css" rel="stylesheet" />
+    <style>
+        div.rowpadding {
+            padding-top: 7px;
+        }
+
+        div.coltextalign {
+            text-align: right;
+        }
+
+        label.radiopadding {
+            padding-left: 5px;
+            padding-top: 1px;
+        }
+
+        div.modalpadding {
+            padding-top: 0px;
+        }
+
+        div.modalheadercreatecolor {
+            background-color: #198754 !important;
+        }
+
+        div.modalheadereditcolor {
+            background-color: #0d6efd !important;
+        }
+
+        input.modalbuttontoprightclose {
+            background-color: white !important;
+        }
+
+        div.modalbodycolor {
+            background-color: gainsboro !important;
+        }
+
+        div.modalfooter {
+            background-color: gainsboro !important;
+        }
+
+        label.modallabelcreate {
+            color: #198754;
+            font-weight: bold;
+            margin-top: 6px;
+        }
+
+        label.modallabeledit {
+            color: #0d6efd;
+            font-weight: bold;
+            margin-top: 6px;
+        }
+
+        hr.positionhr {
+            border-top: 1px solid !important;
+            opacity: 1 !important;
+        }
+
+        label.message {
+            font-weight: bold;
+        }
+
+        div.colpadding {
+            padding-top: 7px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row rowpadding">
+            <div class="col-2">
+                <b>Organization Chart</b>
+            </div>
+            <div class="col-1 coltextalign">
+                <b>Language:</b>
+            </div>
+            <div class="col-2">
+                <input type="radio" name="language" value="english" checked /><label class="radiopadding">English</label>
+                &nbsp;
+                <input type="radio" name="language" value="turkish" /><label class="radiopadding">Turkish</label>
+            </div>
+            <div class="col-1 coltextalign">
+                <b>Show:</b>
+            </div>
+            <div class="col-2">
+                <input type="radio" name="showunitsorpositions" value="units" checked /><label class="radiopadding">Units</label>
+                &nbsp;
+                <input type="radio" name="showunitsorpositions" value="positions" /><label class="radiopadding">Positions</label>
+            </div>
+            <div class="col-2">
+                <input type="checkbox" id="showabbreviations" /> Abbreviations
+                &nbsp;&nbsp;
+                <input type="checkbox" id="showonlyactive" checked /> Only Active
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-12">
+                <div id="orgChartContainer">
+                    <div id="orgChart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal modal-xl modalpadding" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modalheadercreatecolor">
+                    <h5 class="modal-title"></h5>
+                    <input type="button" class="btn-close modalbuttontoprightclose" title="Close" />
+                </div>
+                <div class="modal-body modalbodycolor">
+                    <input type="hidden" id="id" class="modalinput" />
+                    <input type="hidden" id="parentid" class="modalinput" />
+                    <input type="hidden" id="positionid" class="modalinput" />
+                    <input type="hidden" id="level" class="modalinput" />
+                    <input type="hidden" id="operation" class="modalinput" />
+                    <div class="row mb-3">
+                        <div class="col-2">
+                            <label class="modallabel modallabelcreate">English Name</label>
+                        </div>
+                        <div class="col-10">
+                            <input type="text" id="nameenglish" class="form-control modalinput" placeholder="Enter Unit's English Name" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-2">
+                            <label class="modallabel modallabelcreate">Turkish Name</label>
+                        </div>
+                        <div class="col-10">
+                            <input type="text" id="nameturkish" class="form-control modalinput" placeholder="Enter Unit's Turkish Name" />
+                            <span id="nameerror" class="text-danger" style="display: none;">Unit's English or Turkish Name is required!</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-2">
+                            <label class="modallabel modallabelcreate">English Title</label>
+                        </div>
+                        <div class="col-10">
+                            <input type="text" id="textenglish" class="form-control modalinput" placeholder="Enter Unit's English Title" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-2">
+                            <label class="modallabel modallabelcreate">Turkish Title</label>
+                        </div>
+                        <div class="col-10">
+                            <input type="text" id="textturkish" class="form-control modalinput" placeholder="Enter Unit's Turkish Title" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-2">
+                            <label class="modallabel modallabelcreate">English Abbreviation</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="text" id="abbreviationenglish" class="form-control modalinput" placeholder="Enter Unit's English Abbreviation" />
+                        </div>
+                        <div class="col-2">
+                            <label class="modallabel modallabelcreate">Turkish Abbreviation</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="text" id="abbreviationturkish" class="form-control modalinput" placeholder="Enter Unit's Turkish Abbreviation" />
+                        </div>
+                    </div>
+                    <div class="row mb-3 parentunit">
+                        <div class="col-2">
+                            <label class="modallabel modallabelcreate">Parent Unit</label>
+                        </div>
+                        <div class="col-10">
+                            <select id="parentunit" class="form-select modalinput"></select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-2">
+                            <label class="modallabel modallabelcreate">Active</label>
+                        </div>
+                        <div class="col-10 colpadding">
+                            <input type="checkbox" id="active" class="modalinputcheckbox" />
+                        </div>
+                    </div>
+                    <hr class="text-danger positionhr" />
+                    <div class="row mb-3">
+                        <div class="col-2">
+                            <label class="modallabel text-danger">Position</label>
+                        </div>
+                        <div class="col-8">
+                            <select id="position" class="form-select modalinput"></select>
+                            <span id="positionerror" class="text-danger" style="display: none;">Position must be selected or<br />a new Postion must be entered with English or Turkish Title!</span>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-outline-danger modalpositionedit" title="Edit Position"><i class="bi bi-pencil"></i></button>
+                            &nbsp;
+                            <button class="btn btn-outline-danger modalpositiondelete" title="Delete Position"><i class="bi bi-trash3"></i></button>
+                        </div>
+                    </div>
+                    <div class="row mb-3 position">
+                        <div class="col-2">
+                            <label class="modallabel text-danger">English Title</label>
+                        </div>
+                        <div class="col-10">
+                            <input id="positiontextenglish" type="text" class="form-control modalpositioninput" placeholder="Enter New Position's English Title" />
+                        </div>
+                    </div>
+                    <div class="row mb-3 position">
+                        <div class="col-2">
+                            <label class="modallabel text-danger">Turkish Title</label>
+                        </div>
+                        <div class="col-10">
+                            <input id="positiontextturkish" type="text" class="form-control modalpositioninput" placeholder="Enter New Position's Turkish Title" />
+                        </div>
+                    </div>
+                    <hr class="text-danger positionhr" />
+                </div>
+                <div class="modal-footer modalfooter">
+                    <label class="text-danger message"></label>
+                    <button class="btn btn-outline-success modalbuttonclose">Close</button>
+                    <button class="btn btn-success modalbuttonsave">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="plugins/jquery-orgchart/jquery.orgchart.js"></script>
+    <script src="lib/AlertifyJS/alertify.min.js"></script>
+    <script src="plugins/jquery-orgchart/Units.js"></script>
+</body>
+</html>

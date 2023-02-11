@@ -1,0 +1,9 @@
+﻿"ConnectionStrings": {
+    "Db": "server=SERVER;database=DATABASE;user id=USERID;password=PASSWORD;multipleactiveresultsets=true;"
+},
+"JwtOptions": {
+    "Audience": "www.appcorelite.com",
+    "Issuer": "www.appcorelite.com",
+    "ExpirationInMinutes": 43800, // 1 month
+    "SecurityKey": "4QrJRmIu0R9PlAGrGgQAi6OJ5cf5VZNf"
+},

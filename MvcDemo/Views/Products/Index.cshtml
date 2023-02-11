@@ -1,0 +1,139 @@
+﻿@model ProductsIndexViewModel
+    
+@{
+	string message;
+	string color;
+}
+@if (ViewBag.Message != null)
+{
+	message = ViewBag.Message.ToString();
+	color = "success";
+	if (message.EndsWith("!"))
+	{
+		color = "danger";
+	}
+	<p class="text-@color">
+		@message
+	</p>
+}
+@if (TempData["Message"] != null)
+{
+	message = TempData["Message"].ToString();
+	color = "success";
+	if (message.EndsWith("!"))
+	{
+		color = "danger";
+	}
+	<p class="text-@color">
+		@message
+	</p>
+}
+    
+@{
+    ViewData["Title"] = "Ürünler (Modal)";
+}
+
+<form asp-action="Index" id="form" autocomplete="off">
+
+	<h1>@ViewData["Title"]</h1>
+
+	@if (User.IsInRole("admin"))
+	{
+		<p>
+			<a href="#" class="showModalLink" data-url="/Products/Create">Yeni</a>
+		</p>
+	}
+
+	<partial name="_PageOrderFilter" model="Model" />
+
+	@if (Model.Products != null && Model.Products.Count() > 0)
+	{
+		<table class="table table-striped table-bordered">
+			<thead>
+					<tr>
+						<th>
+							<a href="#" class="orderexpressionlink">
+								@Html.DisplayNameFor(model => model.Products.FirstOrDefault().Name)
+							</a>
+						</th>
+						<th>
+							<a href="#" class="orderexpressionlink">
+								@Html.DisplayNameFor(model => model.Products.FirstOrDefault().CategoryDisplay)
+							</a>
+						</th>
+						<th>
+							<a href="#" class="orderexpressionlink">
+								@Html.DisplayNameFor(model => model.Products.FirstOrDefault().UnitPriceDisplay)
+							</a>
+						</th>
+						<th>
+							<a href="#" class="orderexpressionlink">
+								@Html.DisplayNameFor(model => model.Products.FirstOrDefault().StockAmount)
+							</a>
+						</th>
+						<th>
+							<a href="#" class="orderexpressionlink">
+								@Html.DisplayNameFor(model => model.Products.FirstOrDefault().ExpirationDateDisplay)
+							</a>
+						</th>
+						<th style="width: 13%;">
+							@Html.DisplayNameFor(model => model.Products.FirstOrDefault().FileContent)
+						</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model.Products)
+					{
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.Name)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.CategoryDisplay)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.UnitPriceDisplay)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.StockAmount)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.ExpirationDateDisplay)
+							</td>
+							<td>
+								@if (!string.IsNullOrWhiteSpace(item.FileContent))
+								{
+									<img src="@item.FileContent" class="img-thumbnail "/>
+								}
+							</td>
+							<td>
+								@if (User.Identity.IsAuthenticated)
+								{
+									<a href="#" class="showModalLink" data-url="/Products/Details/@item.Id">Detay</a>
+									@if (User.IsInRole("admin"))
+									{
+										@:&nbsp;|&nbsp;
+										<a href="#" class="showModalLink" data-url="/Products/Edit/@item.Id">Düzenle</a>
+										@:&nbsp;|&nbsp;
+										<a href="#" class="deleteItem" onclick="deleteItem(@item.Id);">Sil</a>
+										if (!string.IsNullOrWhiteSpace(item.FileContent))
+										{
+											@:&nbsp;|&nbsp;
+											<a asp-action="DeleteFile" asp-route-id="@item.Id">İmajı Sil</a>
+										}
+									}
+								}
+							</td>
+						</tr>
+					}
+				</tbody>
+		</table>
+	}
+</form>
+
+@section Scripts {
+	<script src="~/js/PageOrderFilter.js"></script>
+	<partial name="_AlertifyJS" />
+	<partial name="_Modal" />
+}

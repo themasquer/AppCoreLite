@@ -1,0 +1,139 @@
+﻿@model ProductsReportIndexViewModel
+
+@{
+	string message;
+	string color;
+}
+@if (ViewBag.Message != null)
+{
+	message = ViewBag.Message.ToString();
+	color = "success";
+	if (message.EndsWith("!"))
+	{
+		color = "danger";
+	}
+	<p class="text-@color">
+		@message
+	</p>
+}
+@if (TempData["Message"] != null)
+{
+	message = TempData["Message"].ToString();
+	color = "success";
+	if (message.EndsWith("!"))
+	{
+		color = "danger";
+	}
+	<p class="text-@color">
+		@message
+	</p>
+}
+    
+@{
+    ViewData["Title"] = "Products Report";
+}
+
+<form asp-action="Index" id="form" autocomplete="off">
+
+	<h1>@ViewData["Title"]</h1>
+
+	<div class="row">
+		<div class="col-2">
+			@await Component.InvokeAsync("Categories")
+		</div>
+		<div class="col-10">
+			<partial name="_ReportFilter" model="Model" />
+		</div>
+	</div>
+
+	<partial name="_PageOrder" model="Model" />
+
+	@if (Model.Products != null && Model.Products.Count() > 0)
+	{
+		<table class="table table-striped table-bordered">
+			<thead>
+					<tr>
+						<th>
+							<a href="#" class="orderexpressionlink">
+								@Html.DisplayNameFor(model => model.Products.FirstOrDefault().CategoryName)
+							</a>
+						</th>
+						<th>
+							<a href="#" class="orderexpressionlink">
+								@Html.DisplayNameFor(model => model.Products.FirstOrDefault().ProductName)
+							</a>
+						</th>
+						<th>
+							<a href="#" class="orderexpressionlink">
+								@Html.DisplayNameFor(model => model.Products.FirstOrDefault().StoreName)
+							</a>
+						</th>
+						<th>
+							<a href="#" class="orderexpressionlink">
+								@Html.DisplayNameFor(model => model.Products.FirstOrDefault().UnitPriceDisplay)
+							</a>
+						</th>
+						<th>
+							<a href="#" class="orderexpressionlink">
+								@Html.DisplayNameFor(model => model.Products.FirstOrDefault().StockAmount)
+							</a>
+						</th>
+						<th>
+							<a href="#" class="orderexpressionlink">
+								@Html.DisplayNameFor(model => model.Products.FirstOrDefault().ExpirationDateDisplay)
+							</a>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model.Products)
+					{
+						<tr>
+							<td>
+								@if (string.IsNullOrWhiteSpace(item.CategoryDescription))
+								{
+									@Html.DisplayFor(modelItem => item.CategoryName)
+								}
+								else
+								{
+									<a href="" title="@item.CategoryDescription" style="cursor: zoom-in">
+										@item.CategoryName
+									</a>
+								}
+							</td>
+							<td>
+								@if (string.IsNullOrWhiteSpace(item.ProductDescription))
+								{
+									@Html.DisplayFor(modelItem => item.ProductName)
+								}
+								else
+								{
+									<a href="" title="@item.ProductDescription" style="cursor: zoom-in">
+										@item.ProductName
+									</a>
+								}
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.StoreName)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.UnitPriceDisplay)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.StockAmount)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.ExpirationDateDisplay)
+							</td>
+						</tr>
+					}
+				</tbody>
+		</table>
+	}
+</form>
+
+@section Scripts {
+	<script src="~/js/PageOrderFilter.js"></script>
+	<partial name="_Select2.cshtml" />
+	<partial name="_DatePicker" />
+}

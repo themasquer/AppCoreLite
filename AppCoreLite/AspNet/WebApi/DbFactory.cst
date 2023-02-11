@@ -1,0 +1,9 @@
+﻿public class DbFactory : IDesignTimeDbContextFactory<Db>
+{
+    public Db CreateDbContext(string[] args)
+    {
+        var optionsBuilder = new DbContextOptionsBuilder<Db>();
+        optionsBuilder.UseSqlServer("server=SERVER;database=DATABASE;user id=USERID;password=PASSWORD;multipleactiveresultsets=true;");
+        return new Db(optionsBuilder.Options);
+    }
+}

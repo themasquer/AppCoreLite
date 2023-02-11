@@ -1,0 +1,70 @@
+﻿@model DataAccessDemo.Entities.CategoryModel
+    
+@{
+	string message;
+	string color;
+}
+@if (ViewBag.Message != null)
+{
+	message = ViewBag.Message.ToString();
+	color = "success";
+	if (message.EndsWith("!"))
+	{
+		color = "danger";
+	}
+	<p class="text-@color">
+		@message
+	</p>
+}
+@if (TempData["Message"] != null)
+{
+	message = TempData["Message"].ToString();
+	color = "success";
+	if (message.EndsWith("!"))
+	{
+		color = "danger";
+	}
+	<p class="text-@color">
+		@message
+	</p>
+}
+    
+@{
+    ViewData["Title"] = "Yeni";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>Kategori</h4>
+<hr />
+<div class="row">
+    <div class="col-12">
+        <form asp-action="Create">
+		@Html.AntiForgeryToken()
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row mb-3">
+                <label asp-for="Name" class="col-2 col-form-label"></label>
+				<div class="col-5">
+					<input asp-for="Name" class="form-control" />
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="Description" class="col-2 col-form-label"></label>
+				<div class="col-5">
+					<input asp-for="Description" class="form-control" />
+					<span asp-validation-for="Description" class="text-danger"></span>
+				</div>
+            </div>
+            <div class="row mb-3">
+				<div class="offset-2 col-5">
+					<input type="submit" value="Kaydet" class="btn btn-primary" />
+					&nbsp;&nbsp;
+                    <button type="reset" class="btn btn-outline-primary">Temizle</button>
+					&nbsp;&nbsp;
+					<a asp-action="Index">Listeye Geri Dön</a>
+				</div>
+            </div>
+        </form>
+    </div>
+</div>

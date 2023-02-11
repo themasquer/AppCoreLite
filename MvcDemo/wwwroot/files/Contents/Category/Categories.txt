@@ -1,0 +1,11 @@
+﻿Computer
+Home Theater System
+Phone
+Food
+Medicine
+Software
+Vehicle
+Pet
+Kitchen
+Toy
+Garden

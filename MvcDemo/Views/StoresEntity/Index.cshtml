@@ -1,0 +1,116 @@
+﻿@model IEnumerable<DataAccessDemo.Entities.StoreEntity>
+    
+@{
+	string message;
+	string color;
+}
+@if (ViewBag.Message != null)
+{
+	message = ViewBag.Message.ToString();
+	color = "success";
+	if (message.EndsWith("!"))
+	{
+		color = "danger";
+	}
+	<p class="text-@color">
+		@message
+	</p>
+}
+@if (TempData["Message"] != null)
+{
+	message = TempData["Message"].ToString();
+	color = "success";
+	if (message.EndsWith("!"))
+	{
+		color = "danger";
+	}
+	<p class="text-@color">
+		@message
+	</p>
+}
+    
+@{
+    ViewData["Title"] = "Stores";
+}
+
+<h1>@ViewData["Title"]</h1>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+@if (Model != null && Model.Count() > 0)
+{
+	<div style="overflow-y: auto; height: 250px; border-style: solid; border-width: 1px;">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>
+						<a href="#" class="orderexpressionlink">
+							@Html.DisplayNameFor(model => model.Name)
+						</a>
+					</th>
+					<th>
+						<a href="#" class="orderexpressionlink">
+							@Html.DisplayNameFor(model => model.IsVirtualDisplay)
+						</a>
+					</th>
+					<th>
+						<a href="#" class="orderexpressionlink">
+							@Html.DisplayNameFor(model => model.CreateDateDisplay)
+						</a>
+					</th>
+					<th>
+						<a href="#" class="orderexpressionlink">
+							@Html.DisplayNameFor(model => model.CreatedBy)
+						</a>
+					</th>
+					<th>
+						<a href="#" class="orderexpressionlink">
+							@Html.DisplayNameFor(model => model.UpdateDateDisplay)
+						</a>
+					</th>
+					<th>
+						<a href="#" class="orderexpressionlink">
+							@Html.DisplayNameFor(model => model.UpdatedBy)
+						</a>
+					</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model)
+				{
+					<tr>
+						<td>
+							@Html.DisplayFor(modelItem => item.Name)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.IsVirtualDisplay)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.CreateDateDisplay)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.CreatedBy)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.UpdateDateDisplay)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.UpdatedBy)
+						</td>
+						<td>
+							<a asp-action="Details" asp-route-id="@item.Id">Details</a>&nbsp;|&nbsp;
+							<a asp-action="Edit" asp-route-id="@item.Id">Edit</a>&nbsp;|&nbsp;
+							<a href="#" class="deleteItem" onclick="deleteItem(@item.Id);">Delete</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+}
+
+@section Scripts {
+	<partial name="_AlertifyJS" />
+}

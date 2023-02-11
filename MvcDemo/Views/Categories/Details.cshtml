@@ -1,0 +1,68 @@
+﻿@model DataAccessDemo.Entities.CategoryModel
+    
+@{
+	string message;
+	string color;
+}
+@if (ViewBag.Message != null)
+{
+	message = ViewBag.Message.ToString();
+	color = "success";
+	if (message.EndsWith("!"))
+	{
+		color = "danger";
+	}
+	<p class="text-@color">
+		@message
+	</p>
+}
+@if (TempData["Message"] != null)
+{
+	message = TempData["Message"].ToString();
+	color = "success";
+	if (message.EndsWith("!"))
+	{
+		color = "danger";
+	}
+	<p class="text-@color">
+		@message
+	</p>
+}
+    
+@{
+    ViewData["Title"] = "Detay";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model != null)
+{
+    <div>
+        <h4>Kategori</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.ProductCountDisplay)
+            </dt>
+            <dd class="col-10">
+                @Html.DisplayFor(model => model.ProductCountDisplay)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Düzenle</a>&nbsp;|&nbsp;
+        <a asp-action="Index">Listeye Geri Dön</a>
+    </div>
+}

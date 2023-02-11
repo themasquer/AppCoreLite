@@ -1,0 +1,69 @@
+﻿<script>
+    var errorMessage = "İşlem sırasında hata meydana geldi!";
+    var currentUrl;
+    $(function () {
+        $(".showModalLink").click(function (event) {
+            event.preventDefault();
+            $(".modal .modal-title").html($(this).html());
+            currentUrl = window.location.href;
+            currentUrl = currentUrl.split("?")[0];
+            currentUrl = currentUrl.endsWith("#") ? currentUrl.substr(0, currentUrl.length - 1) : currentUrl;
+            var getUrl = $(this).data("url");
+            $.get(getUrl, function () {
+
+            })
+                .done(function (response) {
+                    $(".modal .modal-body").html(response);
+                })
+                .fail(function (response) {
+                    $(".modal .modal-body").html('<span class="text-danger">' + response.responseText + '</span>');
+                });
+            $(".modal").show();
+        });
+        $(".hideModalButton").click(function () {
+            $(".modal").hide();
+        });
+        window.onclick = function (event) {
+            if (event.target == $(".modal")[0]) {
+                $(".modal").hide();
+            }
+        }
+    });
+    function saveModal() {
+        var form = $(".modalForm");
+        var formData = new FormData(form[0]);
+        var postUrl = form.attr("action");
+        $.ajax({
+            url: postUrl,
+            data: formData,
+            type: "post",
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                response = response.trim();
+                if (response.startsWith("<") && response.endsWith(">")) {
+                    $(".modal .modal-body").html(response);
+                } else {
+                    window.location.href = currentUrl + response;
+                }
+            },
+            error: function() {
+                $(".modal .modal-body").html('<span class="text-danger">' + errorMessage + '</span>');
+            }
+        });
+    }
+</script>
+
+<div class="modal" style="z-index: 10;">
+    <div class="modal-lg modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #1F618D; color: #D4E6F1;">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="btn-close hideModalButton" aria-label="Close" style="background-color: #D4E6F1;"></button>
+            </div>
+            <div class="modal-body" style="background-color: #D4E6F1;">
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+﻿using AppCoreLite.Enums;
+using AppCoreLite.Managers;
+using AppCoreLite.Managers.Bases;
+using AppCoreLite.Utilities;
+using DataAccessDemo.Contexts;
+using DataAccessDemo.Managers;
+using DataAccessDemo.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using MvcDemo.Data;
+using MvcDemo.Settings;
+using Newtonsoft.Json.Converters;
+
+var builder = WebApplication.CreateBuilder(args);
+
+#region Culture
+var cultureUtil = new CultureUtil();
+cultureUtil.Set(Languages.English);
+builder.Services.Configure(cultureUtil.AddCulture());
+#endregion
+
+// Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("Db");
+
+#region Identity
+builder.Services.AddDbContext<ApplicationDbContext>(options => 
+    options.UseSqlServer(connectionString));
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => 
+    options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+#endregion
+
+#region Session
+builder.Services.AddSession(config =>
+{
+    config.IdleTimeout = TimeSpan.FromMinutes(20);
+});
+#endregion
+
+#region IoC Container
+builder.Services.AddDbContext<Db>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<UnitDb>(options => options.UseSqlServer(connectionString));
+builder.Services.AddScoped<ProductEntityServiceBase, ProductEntityService>();
+builder.Services.AddScoped<CategoryEntityServiceBase, CategoryEntityService>();
+builder.Services.AddScoped<StoreEntityServiceBase, StoreEntityService>();
+
+builder.Services.AddScoped<ProductServiceBase, ProductService>();
+builder.Services.AddScoped<CategoryServiceBase, CategoryService>();
+builder.Services.AddScoped<StoreServiceBase, StoreService>();
+
+builder.Services.AddScoped<DataTableManagerBase, DataTableManager>();
+builder.Services.AddScoped<ProductReportManagerBase, ProductReportManager>();
+builder.Services.AddScoped<StoreExportManagerBase, StoreExportManager>();
+#endregion
+
+#region AppSettings
+var appSettingsUtil = new AppSettingsUtil(builder.Configuration);
+appSettingsUtil.Bind<AppSettings>();
+#endregion
+
+// Reference: https://github.com/DavidSuescunPelegay/jQuery-datatable-server-side-net-core
+builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.Converters.Add(new StringEnumConverter());
+});
+
+var app = builder.Build();
+
+#region Culture
+app.UseRequestLocalization(cultureUtil.UseCulture());
+#endregion
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseMigrationsEndPoint();
+}
+else
+{
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+#region Session
+app.UseSession();
+#endregion
+
+#region Area
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+      name: "areas",
+      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
+});
+#endregion
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapRazorPages();
+
+app.Run();

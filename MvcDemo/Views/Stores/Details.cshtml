@@ -1,0 +1,92 @@
+﻿@model DataAccessDemo.Entities.StoreModel
+    
+@{
+	string message;
+	string color;
+}
+@if (ViewBag.Message != null)
+{
+	message = ViewBag.Message.ToString();
+	color = "success";
+	if (message.EndsWith("!"))
+	{
+		color = "danger";
+	}
+	<p class="text-@color">
+		@message
+	</p>
+}
+@if (TempData["Message"] != null)
+{
+	message = TempData["Message"].ToString();
+	color = "success";
+	if (message.EndsWith("!"))
+	{
+		color = "danger";
+	}
+	<p class="text-@color">
+		@message
+	</p>
+}
+    
+@{
+    ViewData["Title"] = "Detay";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model != null)
+{
+    <div>
+        <h4>Mağaza</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.IsVirtualDisplay)
+            </dt>
+            <dd class="col-10">
+                @Html.DisplayFor(model => model.IsVirtualDisplay)
+            </dd>
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.ProductsDisplay)
+            </dt>
+            <dd class="col-10">
+                @Html.Raw(Model.ProductsDisplay)
+            </dd>
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.CreateDateDisplay)
+            </dt>
+            <dd class="col-10">
+                @Html.DisplayFor(model => model.CreateDateDisplay)
+            </dd>
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </dt>
+            <dd class="col-10">
+                @Html.DisplayFor(model => model.CreatedBy)
+            </dd>
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.UpdateDateDisplay)
+            </dt>
+            <dd class="col-10">
+                @Html.DisplayFor(model => model.UpdateDateDisplay)
+            </dd>
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.UpdatedBy)
+            </dt>
+            <dd class="col-10">
+                @Html.DisplayFor(model => model.UpdatedBy)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Düzenle</a>&nbsp;|&nbsp;
+        <a asp-action="Index">Listeye Geri Dön</a>
+    </div>
+}

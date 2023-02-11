@@ -1,0 +1,166 @@
+
+div.orgChart {
+    margin: 10px;
+    padding: 20px;
+}
+
+    div.orgChart h2 {
+        margin: 0 0 3px 0;
+        padding: 5px;
+        display: block;
+        /*font-size : 16px;*/
+        background: #fffee6;
+        font-size: 12px;
+        font-weight: normal;
+        /*min-height: 50px;*/
+        min-height: 95px;
+        border-bottom: 1px solid #e3eaeb;
+    }
+
+        div.orgChart h2:hover {
+            background: #fcfaca;
+            /*cursor: text;*/
+            cursor: default;
+        }
+
+    div.orgChart ul {
+        list-style: none;
+        margin: 4px;
+        padding: 0px;
+        font-size: 0.8em;
+        text-align: left;
+    }
+
+        div.orgChart ul.stack,
+        div.orgChart ul.stack ul {
+            text-align: center;
+        }
+
+    div.orgChart table {
+        width: 100%;
+    }
+
+    div.orgChart tr.lines td.line {
+        width: 1px;
+        height: 20px;
+    }
+
+    div.orgChart tr.lines td.top {
+        border-top: 1px solid black;
+    }
+
+    /*div.orgChart tr.lines td.left { border-right : 1px dashed black; }*/
+    div.orgChart tr.lines td.left {
+        border-right: 1px solid black;
+        padding-left: 3px;
+    }
+
+@-moz-document url-prefix() {
+    div.orgChart tr.lines td.left {
+        border-right: 1px solid black;
+        padding-left: 1px;
+    }
+}
+
+div.orgChart tr.lines td.right {
+    border-left: 0px solid black;
+}
+
+div.orgChart tr.lines td.half {
+    width: 50%;
+}
+
+div.orgChart td {
+    text-align: center;
+    vertical-align: top;
+    padding: 0px 2px;
+}
+
+div.orgChart div.node {
+    cursor: default;
+    border: 1px solid #e7e7e7;
+    display: inline-block;
+    padding: 0px;
+    /*width : 96px;*/
+    width: auto;
+    /*min-width: 150px;
+      max-width: 150px;*/
+    min-width: 200px;
+    max-width: 200px;
+    /*height: 60px;*/
+    height: auto;
+    background: #f6f8f8;
+    line-height: 1.3em;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    position: relative;
+    box-shadow: 1px 1px 0px #ddd;
+}
+
+.org-add-button,
+.org-del-button,
+.org-edit-button,
+.org-confirm-del-button {
+    font-size: 12px;
+    width: 16px;
+    height: 16px;
+    /*margin-top: 4px;
+        margin-left: 4px;*/
+    margin: 0px 14px 7px 0px;
+    display: inline-block;
+}
+
+.org-add-button {
+    /*background: url(./add.png) no-repeat 0 3px;*/
+    color: #4CAF50;
+}
+
+    .org-add-button:hover,
+    .org-edit-button:hover,
+    .org-del-button:hover {
+        background-color: #eef;
+        border-radius: 2px;
+        cursor: pointer;
+    }
+
+.org-del-button {
+    /*background: url(./delete.png) no-repeat 0 3px;*/
+    color: #F4511E;
+}
+
+.org-edit-button {
+    color: #6A8EE5;
+}
+
+.org-input {
+    width: 90px;
+}
+
+.org-confirm-del-button {
+    display: none;
+}
+
+.modal-header {
+    background: #2196F3 !important;
+    color: white !important;
+}
+
+.b_close {
+    background-color: Transparent !important;
+    background-repeat: no-repeat !important;
+    border: none !important;
+    cursor: pointer !important;
+    overflow: hidden !important;
+    outline: none !important;
+    color: white !important;
+}
+
+.btn-link {
+    color: #333333 !important;
+}
+
+    .btn-link, .btn-link:hover, btn-link:active, btn-link:focus, btn-link:visited {
+        text-decoration: none !important;
+        border-color: transparent !important;
+    }

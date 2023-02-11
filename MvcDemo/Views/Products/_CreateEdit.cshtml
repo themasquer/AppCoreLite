@@ -1,0 +1,73 @@
+﻿@model DataAccessDemo.Entities.ProductModel
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { autocomplete = "off", enctype = "multipart/form-data", @class = "modalForm" }))
+{
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="row mb-3">
+        <label asp-for="Name" class="col-3 col-form-label"></label>
+        <div class="col-9">
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label asp-for="Description" class="col-3 col-form-label"></label>
+        <div class="col-9">
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label asp-for="UnitPrice" class="col-3 col-form-label"></label>
+        <div class="col-9">
+            <input asp-for="UnitPrice" class="form-control" />
+            <span asp-validation-for="UnitPrice" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label asp-for="StockAmount" class="col-3 col-form-label"></label>
+        <div class="col-9">
+            <input asp-for="StockAmount" class="form-control" />
+            <span asp-validation-for="StockAmount" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label asp-for="ExpirationDate" class="col-3 col-form-label"></label>
+        <div class="col-9">
+            <input asp-for="ExpirationDate" class="form-control datepicker" type="text" />
+            <span asp-validation-for="ExpirationDate" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label asp-for="CategoryId" class="col-3 col-form-label"></label>
+        <div class="col-9">
+            <select asp-for="CategoryId" class="form-select select2" asp-items="ViewBag.CategoryId">
+                <option value="">-- Seçiniz --</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label asp-for="StoreIds" class="col-3 col-form-label"></label>
+        <div class="col-9">
+            <select multiple asp-for="StoreIds" class="form-select select2" asp-items="ViewBag.StoreIds">
+            </select>
+            <span asp-validation-for="StoreIds" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label asp-for="FileData" class="col-3 col-form-label"></label>
+        <div class="col-9">
+            <input type="file" name="image" class="form-control" accept="@AppSettings.ImageExtensions" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="offset-3 col-9">
+            <a href="#" class="btn btn-primary" onclick=saveModal();>Kaydet</a>
+        </div>
+    </div>
+}
+
+<partial name="_DatePicker" />
+<partial name="_Select2" />

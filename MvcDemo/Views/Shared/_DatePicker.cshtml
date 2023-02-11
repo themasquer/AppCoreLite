@@ -1,0 +1,17 @@
+﻿@* https://uxsolutions.github.io/bootstrap-datepicker *@
+<link rel="stylesheet" href="/lib/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" />
+<script src="/lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="/lib/bootstrap-datepicker/locales/bootstrap-datepicker.tr.min.js"></script>
+
+<script>
+    $(function() {
+        $('.datepicker').css("z-index", "100");
+        $('.datepicker').datepicker({
+            language: "en",
+            todayBtn: "linked",
+            orientation: "left auto",
+            autoclose: true,
+            todayHighlight: true
+        });
+    });
+</script>

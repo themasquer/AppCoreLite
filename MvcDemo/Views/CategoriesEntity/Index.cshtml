@@ -1,0 +1,71 @@
+﻿@model CategoriesEntityIndexViewModel
+    
+@{
+	string message;
+	string color;
+}
+@if (ViewBag.Message != null)
+{
+	message = ViewBag.Message.ToString();
+	color = "success";
+	if (message.EndsWith("!"))
+	{
+		color = "danger";
+	}
+	<p class="text-@color">
+		@message
+	</p>
+}
+@if (TempData["Message"] != null)
+{
+	message = TempData["Message"].ToString();
+	color = "success";
+	if (message.EndsWith("!"))
+	{
+		color = "danger";
+	}
+	<p class="text-@color">
+		@message
+	</p>
+}
+    
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table id="dataTable" class="table table-striped table-bordered" style="width: 100%;">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Category.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category.ProductCountDisplay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category.CreateDateDisplay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category.CreatedBy)
+            </th>
+			<th>
+                @Html.DisplayNameFor(model => model.Category.UpdateDateDisplay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category.UpdatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category.OperationLinks)
+            </th>
+        </tr>
+    </thead>
+</table>
+
+@section Scripts {
+	<partial name="_DataTable" />
+}

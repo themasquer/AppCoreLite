@@ -1,0 +1,126 @@
+﻿@model DataAccessDemo.Entities.ProductEntity
+
+@{
+    string message;
+    string color;
+}
+@if (ViewBag.Message != null)
+{
+    message = ViewBag.Message.ToString();
+    color = "success";
+    if (message.EndsWith("!"))
+    {
+        color = "danger";
+    }
+    <p class="text-@color">
+        @message
+    </p>
+}
+@if (TempData["Message"] != null)
+{
+    message = TempData["Message"].ToString();
+    color = "success";
+    if (message.EndsWith("!"))
+    {
+        color = "danger";
+    }
+    <p class="text-@color">
+        @message
+    </p>
+}
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model != null)
+{
+    <h4>Product</h4>
+    <hr />
+    <div class="row">
+        <div class="col-12">
+            <form asp-action="Edit" autocomplete="off" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Id" />
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="row mb-3">
+                    <label asp-for="Name" class="col-2 col-form-label"></label>
+                    <div class="col-5">
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label asp-for="Description" class="col-2 col-form-label"></label>
+                    <div class="col-5">
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label asp-for="UnitPrice" class="col-2 col-form-label"></label>
+                    <div class="col-5">
+                        <input asp-for="UnitPrice" class="form-control" />
+                        <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label asp-for="StockAmount" class="col-2 col-form-label"></label>
+                    <div class="col-5">
+                        <input asp-for="StockAmount" class="form-control" />
+                        <span asp-validation-for="StockAmount" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label asp-for="ExpirationDate" class="col-2 col-form-label"></label>
+                    <div class="col-5">
+                        <input asp-for="ExpirationDate" class="form-control datepicker" type="text" />
+                        <span asp-validation-for="ExpirationDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label asp-for="CategoryEntityId" class="col-2 col-form-label"></label>
+                    <div class="col-5">
+                        <select asp-for="CategoryEntityId" class="form-select select2" asp-items="ViewBag.CategoryId">
+                            <option value="">-- Select --</option>
+                        </select>
+                        <span asp-validation-for="CategoryEntityId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label asp-for="StoreEntityIds" class="col-2 col-form-label"></label>
+                    <div class="col-5">
+                        <select multiple asp-for="StoreEntityIds" class="form-select select2" asp-items="ViewBag.StoreIds">
+                        </select>
+                        <span asp-validation-for="StoreEntityIds" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+				    <label asp-for="FileData" class="col-2 col-form-label"></label>
+				    <div class="col-5">
+					    <input type="file" name="image" class="form-control" accept="@AppSettings.ImageExtensions" />
+				    </div>
+                    <div class="col-1">
+                        <a asp-action="DeleteFile" asp-route-id="@Model.Id">Delete Image</a>
+                    </div>
+			    </div>
+                <div class="row mb-3">
+                    <div class="offset-2 col-5">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        &nbsp;&nbsp;
+                        <button type="reset" class="btn btn-outline-primary">Reset</button>
+                        &nbsp;&nbsp;
+                        <a asp-action="Index" asp-route-usePageOrderFilterSession="true">Back to List</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <partial name="_DatePicker" />
+    <partial name="_Select2" />
+}

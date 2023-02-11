@@ -1,0 +1,101 @@
+﻿@model DataAccessDemo.Entities.ProductEntity
+    
+@{
+	string message;
+	string color;
+}
+@if (ViewBag.Message != null)
+{
+	message = ViewBag.Message.ToString();
+	color = "success";
+	if (message.EndsWith("!"))
+	{
+		color = "danger";
+	}
+	<p class="text-@color">
+		@message
+	</p>
+}
+@if (TempData["Message"] != null)
+{
+	message = TempData["Message"].ToString();
+	color = "success";
+	if (message.EndsWith("!"))
+	{
+		color = "danger";
+	}
+	<p class="text-@color">
+		@message
+	</p>
+}
+    
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model != null)
+{
+    <div>
+        <h4>Product</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+             <dt class="col-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.CategoryEntityDisplay)
+            </dt>
+            <dd class="col-10">
+                @Html.DisplayFor(model => model.CategoryEntityDisplay)
+            </dd>
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.StoreEntities)
+            </dt>
+            <dd class="col-10">
+                @Html.Raw(string.Join("<br />", Model.StoreEntities.Select(s => s.Name)))
+            </dd>
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.UnitPriceDisplay)
+            </dt>
+            <dd class="col-10">
+                @Html.DisplayFor(model => model.UnitPriceDisplay)
+            </dd>
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.StockAmount)
+            </dt>
+            <dd class="col-10">
+                @Html.DisplayFor(model => model.StockAmount)
+            </dd>
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.ExpirationDateDisplay)
+            </dt>
+            <dd class="col-10">
+                @Html.DisplayFor(model => model.ExpirationDateDisplay)
+            </dd>
+            <dt class="col-2">
+                @Html.DisplayNameFor(model => model.FileContent)
+            </dt>
+            <dd class="col-3">
+                @if (!string.IsNullOrWhiteSpace(Model.FileContent))
+                {
+                    <a asp-action="DownloadFile" asp-route-id="@Model.Id" title="Download Image"><img src="@Model.FileContent" class="img-fluid " /></a>
+                }
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>&nbsp;|&nbsp;
+        <a asp-action="Index" asp-route-usePageOrderFilterSession="true">Back to List</a>
+    </div>
+}

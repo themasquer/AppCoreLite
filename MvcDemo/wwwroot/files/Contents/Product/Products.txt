@@ -1,0 +1,7 @@
+﻿Laptop
+Mouse
+Keyboard
+Monitor
+Speaker
+Receiver
+Equalizer

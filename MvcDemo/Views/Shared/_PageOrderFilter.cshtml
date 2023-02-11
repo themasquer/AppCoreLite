@@ -1,0 +1,40 @@
+﻿@model PageOrderFilterViewModel
+
+<link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
+
+<hr />
+<div class="row" style="padding-top: 15px;padding-bottom: 15px;">
+    <div class="col-4">
+        <div class="input-group">
+            <input asp-for="PageOrderFilter.Filter" class="form-control filter" placeholder="@Model.Config.Filter" />
+            <button type="submit" class="btn btn-dark">@Model.Config.Search</button>
+            <a class="btn btn-outline-dark clear">@Model.Config.Clear</a>
+        </div>
+    </div>
+    <div class="col-1" style="text-align: right;">
+        <label>@Model.Config.PageNumber</label>
+    </div>
+    <div class="col-1">
+        <select asp-for="PageOrderFilter.PageNumber" asp-items="Model.PageNumbers" class="form-select pagenumber"></select>
+    </div>
+    <div class="col-1" style="text-align: right;">
+        <label>@Model.Config.RecordsCount</label>
+    </div>
+    <div class="col-1">
+        <select asp-for="PageOrderFilter.RecordsPerPageCount" asp-items="Model.RecordsPerPageCounts" class="form-select recordsperpagecount"></select>
+    </div>
+    <div class="col-1 order" style="text-align: right;">
+        <label>@Model.Config.Order</label>
+    </div>
+    <div class="col-2 order">
+        <select asp-for="PageOrderFilter.OrderExpression" asp-items="Model.OrderExpressions" class="form-select orderexpression"></select>
+    </div>
+    <div class="col-1 order">
+        <div class="form-check">
+            <input asp-for="PageOrderFilter.IsOrderDirectionAscending" class="form-check-input order isorderdirectionascending" id="isorderdirectionascending">
+            <label class="form-check-label" for="isdirectionascending">
+                @Model.Config.Ascending
+            </label>
+        </div>
+    </div>
+</div>
