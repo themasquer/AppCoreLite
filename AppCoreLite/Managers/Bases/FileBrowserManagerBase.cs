@@ -68,6 +68,7 @@ namespace AppCoreLite.Managers.Bases
                 { ".css", "css" },
                 { ".js", "javascript" },
                 { ".cs", "csharp" },
+                { ".java", "java" },
                 { ".sql", "sql" }
             };
             Dictionary<string, string> imageFiles = new Dictionary<string, string>()
