@@ -12,7 +12,7 @@
 {
     <div class="row">
         <div class="col-11">
-            <h3>@Html.Raw(Model.Title)</h3>
+            <h4>@Html.Raw(Model.Title)</h4>
         </div>
         @if (Model.FileType == FileTypes.Text)
         {
@@ -46,7 +46,7 @@
                     {
                         @foreach (var content in Model.Contents)
                         {
-                            <li>
+                            <li style="padding: 5px;">
                                 <a style="text-decoration: none;" class="text-dark" asp-action="Index" asp-route-path="@content.FileFolders">
                                     @if (content.IsFile)
                                     {
