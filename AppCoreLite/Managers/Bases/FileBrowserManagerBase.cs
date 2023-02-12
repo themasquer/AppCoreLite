@@ -15,7 +15,7 @@ namespace AppCoreLite.Managers.Bases
 
         private string? _fullPath;
 
-        public void Set(string wwwrootPath, string rootPath, string controller, string action, string area = "", string startLink = "Home")
+        public void Set(string wwwrootPath, string rootPath, string controller, string action, string startLink = "Home", string area = "")
         {
             _controller = controller;
             _action = action;
