@@ -6,6 +6,6 @@
         public static string Title { get; set; }
         public static string ImageExtensions { get; set; }
         public static double ImageMaximumLength { get; set; }
-        public static string TextFilesRootPath { get; set; }
+        public static string ContentFilesRootPath { get; set; }
     }
 }
