@@ -14,7 +14,7 @@ namespace MvcDemo.Controllers
         {
             _environment = environment;
             _fileBrowserManager = fileBrowserManager;
-            _fileBrowserManager.Set("FileBrowser", "Index", _environment.WebRootPath, AppSettings.ContentFilesRootPath);
+            _fileBrowserManager.Set(_environment.WebRootPath, AppSettings.ContentFilesRootPath, "FileBrowser", "Index");
         }
 
         public IActionResult Index(string? path = null)

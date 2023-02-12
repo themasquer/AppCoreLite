@@ -9,15 +9,17 @@ namespace AppCoreLite.Managers.Bases
     {
         private string _controller = "";
         private string _action = "";
+        private string _area = "";
         private string _rootPath = "";
         private string _startLink = "";
 
         private string? _fullPath;
 
-        public void Set(string controller, string action, string wwwrootPath, string rootPath, string startLink = "Home")
+        public void Set(string wwwrootPath, string rootPath, string controller, string action, string area = "", string startLink = "Home")
         {
             _controller = controller;
             _action = action;
+            _area = area;
             _rootPath = $"{wwwrootPath}\\{rootPath}\\";
             _startLink = startLink;
         }
@@ -147,6 +149,7 @@ namespace AppCoreLite.Managers.Bases
             string[] items = path.Split('\\');
             var linkedItems = new List<string>();
             string linkedItem;
+            string link;
             for (int i = 0; i < items.Length; i++)
             {
                 if (!string.IsNullOrWhiteSpace(items[i]))
@@ -156,7 +159,12 @@ namespace AppCoreLite.Managers.Bases
                     {
                         linkedItem += items[j] + "\\";
                     }
-                    linkedItems.Add("<a style=\"text-decoration: none;\" href=\"/" + _controller + "/" + _action + "?path=" + linkedItem.TrimEnd('\\') + "\">" + items[i] + "</a>");
+                    link = "<a style=\"text-decoration: none;\" ";
+                    link += "href=\"" + (string.IsNullOrWhiteSpace(_area) ? "/" : "/" + _area + "/");
+                    link += _controller + "/" + _action;
+                    link += "?path=" + linkedItem.TrimEnd('\\') + "\">";
+                    link += items[i] + "</a>";
+                    linkedItems.Add(link);
                 }
             }
             return string.Join("\\", linkedItems);
