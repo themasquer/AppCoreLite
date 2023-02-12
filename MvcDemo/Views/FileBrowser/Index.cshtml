@@ -11,12 +11,12 @@
 @if (Model != null)
 {
     <div class="row">
-        <div class="col-11">
+        <div class="col-10">
             <h4>@Html.Raw(Model.Title)</h4>
         </div>
         @if (Model.FileType == FileTypes.Text)
         {
-            <div class="col-1">
+            <div class="col-2 text-end">
                 <button id="clipboardbutton" class="btn btn-dark">Copy Content</button>
             </div>
         }
@@ -29,7 +29,7 @@
                 if (Model.FileType == FileTypes.Text)
                 {
                     <pre>
-                        <code id="clipboardcontainer" class="free dragscroll language-@Model.FileContentType" style="height: 500px; overflow: auto;cursor: grab;">
+                        <code id="clipboardcontainer" class="free dragscroll language-@Model.FileContentType" style="height: 550px; overflow: auto;cursor: grab;">
                             @Model.FileContent
                         </code>
                     </pre>
