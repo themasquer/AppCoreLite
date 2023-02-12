@@ -5,6 +5,6 @@
         None,
         Text,
         Image,
-        Compressed
+        Other
     }
 }

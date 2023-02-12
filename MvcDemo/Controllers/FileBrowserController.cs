@@ -20,7 +20,7 @@ namespace MvcDemo.Controllers
         public IActionResult Index(string? path = null)
         {
             var contentsViewModel = _fileBrowserManager.GetContents(path);
-            if (contentsViewModel.FileType == FileTypes.Compressed)
+            if (contentsViewModel.FileType == FileTypes.Other)
                 return File(contentsViewModel.FileBinaryContent, contentsViewModel.FileContentType, contentsViewModel.Title);
             return View(contentsViewModel);
         }

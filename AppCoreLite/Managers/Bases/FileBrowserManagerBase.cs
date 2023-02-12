@@ -80,9 +80,10 @@ namespace AppCoreLite.Managers.Bases
                 { ".jpeg", "image/jpeg" },
                 { ".gif", "image/gif" }
             };
-            Dictionary<string, string> compressedFiles = new Dictionary<string, string>()
+            Dictionary<string, string> otherFiles = new Dictionary<string, string>()
             {
-                { ".zip", "application/zip" }
+                { ".zip", "application/zip" },
+                { ".docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }
             };
             string content = "";
             string? line;
@@ -115,13 +116,13 @@ namespace AppCoreLite.Managers.Bases
                 };
                 fileBrowserViewModel.FileContent = "data:" + imageFiles[extension] + ";base64," + Convert.ToBase64String(fileBrowserViewModel.FileBinaryContent);
             }
-            else if (compressedFiles.Keys.Contains(extension))
+            else if (otherFiles.Keys.Contains(extension))
             {
                 fileBrowserViewModel = new FileBrowserViewModel()
                 {
                     FileBinaryContent = File.ReadAllBytes(path),
-                    FileType = FileTypes.Compressed,
-                    FileContentType = compressedFiles[extension]
+                    FileType = FileTypes.Other,
+                    FileContentType = otherFiles[extension]
                 };
                 fileBrowserViewModel.Title = Path.GetFileName(path);
             }
