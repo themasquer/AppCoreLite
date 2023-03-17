@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace DataAccessDemo.Managers
 {
-    public abstract class ProductReportManagerBase : ReportManagerBase<ProductReport>
+    public abstract class ProductReportManagerBase : ReportManagerBase<ProductReportModel>
     {
         protected ProductReportManagerBase(Db db, IHttpContextAccessor httpContextAccessor) : base(db, httpContextAccessor)
         {
@@ -19,7 +19,7 @@ namespace DataAccessDemo.Managers
         {
         }
 
-        public override IQueryable<ProductReport> Query()
+        public override IQueryable<ProductReportModel> Query()
         {
             var query = from p in _db.Set<Product>()
                         join c in _db.Set<Category>()
@@ -31,7 +31,7 @@ namespace DataAccessDemo.Managers
                         join s in _db.Set<Store>()
                         on productStore.StoreId equals s.Id into stores
                         from store in stores.DefaultIfEmpty()
-                        select new ProductReport()
+                        select new ProductReportModel()
                         {
                             CategoryDescription = category.Description,
                             CategoryId = category.Id,

@@ -49,7 +49,7 @@ namespace MvcDemo.Controllers
         private void UpdateViewModelList(ProductsReportIndexViewModel viewModel)
         {
             viewModel.Set(Languages.English);
-            Expression<Func<ProductReport, bool>>? predicate = p => true;
+            Expression<Func<ProductReportModel, bool>>? predicate = p => true;
             if (!string.IsNullOrWhiteSpace(viewModel.ProductName))
                 predicate = predicate.And(p => p.ProductName.ToLower().Contains(viewModel.ProductName.ToLower().Trim()));
             if (viewModel.CategoryId.HasValue)
@@ -64,7 +64,7 @@ namespace MvcDemo.Controllers
                 predicate = predicate.And(p => p.ExpirationDate >= viewModel.ExpirationDateMinimum);
             if (viewModel.ExpirationDateMaximum.HasValue)
                 predicate = predicate.And(p => p.ExpirationDate <= viewModel.ExpirationDateMaximum);
-            List<ProductReport> products = _reportManager.GetList(viewModel.PageOrder, predicate);
+            List<ProductReportModel> products = _reportManager.GetList(viewModel.PageOrder, predicate);
             ViewBag.Message = _reportManager.TotalRecordsCount;
             viewModel.Products = products;
             viewModel.PageNumbers = new SelectList(_reportManager.PageNumbers);

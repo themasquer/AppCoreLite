@@ -2,7 +2,7 @@
 
 namespace AppCoreLite.Models.Bases
 {
-    public abstract class ReportBase : ISoftDelete
+    public abstract class ReportModelBase : ISoftDelete
     {
         public bool? IsDeleted { get; set; }
     }

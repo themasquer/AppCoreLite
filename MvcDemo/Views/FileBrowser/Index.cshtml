@@ -23,13 +23,16 @@
     </div>
     <hr />
     <div class="row">
-        <div class="col-12">
+        <div class="col-3 ps-0 border-end border-dark" style="height: 495px; overflow: auto;">
+            @Html.Raw(Model.HierarchicalDirectoryLinks)
+        </div>
+        <div class="col-9">
             @if (Model.FileContent != null)
             {
                 if (Model.FileType == FileTypes.Text)
                 {
                     <pre>
-                        <code id="clipboardcontainer" class="free dragscroll language-@Model.FileContentType" style="height: 500px; overflow: auto;cursor: grab;">
+                        <code id="clipboardcontainer" class="free dragscroll language-@Model.FileContentType" style="height: 474px; overflow: auto;cursor: grab;">
                             @Model.FileContent
                         </code>
                     </pre>
@@ -47,14 +50,14 @@
                         @foreach (var content in Model.Contents)
                         {
                             <li style="padding: 5px;">
-                                <a style="text-decoration: none;" class="text-dark" asp-action="Index" asp-route-path="@content.FileFolders">
+                                <a style="text-decoration: none;" class="text-dark" asp-action="Index" asp-route-path="@content.Folders">
                                     @if (content.IsFile)
                                     {
-                                        @content.FileName
+                                        @content.Name
                                     }
                                     else
                                     {
-                                        <span class="badge bg-dark">@content.FileName</span>
+                                        <span class="badge bg-dark">@content.Name</span>
                                     }
                                 </a>
                             </li>

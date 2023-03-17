@@ -77,7 +77,7 @@ namespace AppCoreLite.Managers.Bases
     /// <summary>
     /// Base report manager class for managing report operations using report models.
     /// </summary>
-    public abstract class ReportManagerBase<TReport> : ExportManagerBase, IDisposable where TReport : ReportBase, new()
+    public abstract class ReportManagerBase<TReport> : ExportManagerBase, IDisposable where TReport : ReportModelBase, new()
     {
         protected readonly DbContext _db;
 

@@ -7,7 +7,7 @@ namespace MvcDemo.Models
 {
     public class ProductsReportIndexViewModel : PageOrderViewModel
     {
-        public List<ProductReport> Products { get; set; }
+        public List<ProductReportModel> Products { get; set; }
         public MultiSelectList Categories { get; set; }
         public MultiSelectList Stores { get; set; }
 

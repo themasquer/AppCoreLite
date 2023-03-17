@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace DataAccessDemo.Models
 {
-    public class ProductReport : ReportBase
+    public class ProductReportModel : ReportModelBase
     {
         [DisplayName("Category Name")]
         [OrderTag]

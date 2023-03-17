@@ -15,6 +15,32 @@ namespace AppCoreLite.Managers.Bases
 
         private string? _fullPath;
 
+        Dictionary<string, string> textFiles = new Dictionary<string, string>
+        {
+                { ".txt", "plaintext" },
+                { ".json", "json" },
+                { ".xml", "xml" },
+                { ".htm", "html" },
+                { ".html", "html" },
+                { ".css", "css" },
+                { ".js", "javascript" },
+                { ".cs", "csharp" },
+                { ".java", "java" },
+                { ".sql", "sql" }
+        };
+        Dictionary<string, string> imageFiles = new Dictionary<string, string>()
+        {
+                { ".png", "image/png" },
+                { ".jpg", "image/jpeg" },
+                { ".jpeg", "image/jpeg" },
+                { ".gif", "image/gif" }
+        };
+        Dictionary<string, string> otherFiles = new Dictionary<string, string>()
+        {
+                { ".zip", "application/zip" },
+                { ".docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }
+        };
+
         public void Set(string wwwrootPath, string rootPath, string controller, string action, string startLink = "Home", string area = "")
         {
             _controller = controller;
@@ -46,45 +72,22 @@ namespace AppCoreLite.Managers.Bases
             else
             {
                 fileBrowserViewModel = GetDirectories(_fullPath);
-                var files = Directory.GetFiles(_fullPath).OrderBy(f => f).Select(f => new FileBrowserModel()
+                List<FileBrowserItemModel> files = Directory.GetFiles(_fullPath).OrderBy(f => f).Select(f => new FileBrowserItemModel()
                 {
-                    FileName = Path.GetFileName(f),
-                    FileFolders = _startLink + "\\" + f.Substring(f.IndexOf(_rootPath) + _rootPath.Length),
+                    Name = Path.GetFileName(f),
+                    Folders = _startLink + "\\" + f.Substring(f.IndexOf(_rootPath) + _rootPath.Length),
                     IsFile = true
                 }).ToList();
                 fileBrowserViewModel.Contents?.AddRange(files);
                 fileBrowserViewModel.Title = AddLinks(path ?? _startLink);
             }
+            if (fileBrowserViewModel is not null)
+                fileBrowserViewModel.HierarchicalDirectoryLinks = GetHierarchicalDirectoryLinks(new DirectoryInfo(_rootPath), path, _startLink);
             return fileBrowserViewModel;
         }
 
         private FileBrowserViewModel? GetFile(string path, bool includeLineNumbers)
         {
-            Dictionary<string, string> textFiles = new Dictionary<string, string>
-            {
-                { ".txt", "plaintext" },
-                { ".json", "json" },
-                { ".xml", "xml" },
-                { ".htm", "html" },
-                { ".html", "html" },
-                { ".css", "css" },
-                { ".js", "javascript" },
-                { ".cs", "csharp" },
-                { ".java", "java" },
-                { ".sql", "sql" }
-            };
-            Dictionary<string, string> imageFiles = new Dictionary<string, string>()
-            {
-                { ".png", "image/png" },
-                { ".jpg", "image/jpeg" },
-                { ".jpeg", "image/jpeg" },
-                { ".gif", "image/gif" }
-            };
-            Dictionary<string, string> otherFiles = new Dictionary<string, string>()
-            {
-                { ".zip", "application/zip" },
-                { ".docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }
-            };
             string content = "";
             string? line;
             int lineNumber = 0;
@@ -133,10 +136,10 @@ namespace AppCoreLite.Managers.Bases
         {
             return new FileBrowserViewModel()
             {
-                Contents = Directory.GetDirectories(path).OrderBy(d => d).Select(d => new FileBrowserModel()
+                Contents = Directory.GetDirectories(path).OrderBy(d => d).Select(d => new FileBrowserItemModel()
                 {
-                    FileName = Path.GetFileName(d),
-                    FileFolders = _startLink + "\\" + (string.IsNullOrWhiteSpace(path) ?
+                    Name = Path.GetFileName(d),
+                    Folders = _startLink + "\\" + (string.IsNullOrWhiteSpace(path) ?
                     Path.GetFileName(d) :
                     d.Substring(d.IndexOf(_rootPath) + _rootPath.Length))
                 }).ToList()
@@ -145,10 +148,8 @@ namespace AppCoreLite.Managers.Bases
 
         private string AddLinks(string path)
         {
-            if (string.IsNullOrWhiteSpace(path))
-                path = _startLink;
             string[] items = path.Split('\\');
-            var linkedItems = new List<string>();
+            List<string> linkedItems = new List<string>();
             string linkedItem;
             string link;
             for (int i = 0; i < items.Length; i++)
@@ -169,6 +170,78 @@ namespace AppCoreLite.Managers.Bases
                 }
             }
             return string.Join("\\", linkedItems);
+        }
+
+        private string GetHierarchicalDirectoryLinks(DirectoryInfo rootDirectory, string? path, string linkPath, byte level = 0, List<HierarchicalDirectoryModel>? hierarchicalDirectories = null)
+        {
+            HierarchicalDirectoryModel? lastHierarchicalDirectory;
+            string ulTag;
+            string extension;
+            string[] pathItems;
+            bool underlineLink;
+            DirectoryInfo[] subDirectories = rootDirectory.GetDirectories().OrderBy(d => d.Name).ToArray();
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                extension = Path.GetExtension(path).ToLower();
+                if (!string.IsNullOrWhiteSpace(extension))
+                {
+                    pathItems = path.Split('\\');
+                    path = "";
+                    for (int i = 0; i < pathItems.Length - 1; i++)
+                    {
+                        path += pathItems[i] + "\\";
+                    }
+                    path = path.TrimEnd('\\');
+                }
+            }
+            if (hierarchicalDirectories is null)
+                hierarchicalDirectories = new List<HierarchicalDirectoryModel>();
+            if (subDirectories.Length > 0)
+                level++;
+            foreach (DirectoryInfo subDirectory in subDirectories)
+            {
+                lastHierarchicalDirectory = hierarchicalDirectories.LastOrDefault();
+                ulTag = "";
+                underlineLink = false;
+                if (lastHierarchicalDirectory is not null)
+                {
+                    if (lastHierarchicalDirectory.Level < level)
+                    {
+                        ulTag = "<ul style=\"list-style-type: none;\">";
+                        linkPath += $"\\{subDirectory.Name}";
+                    }
+                    else 
+                    {
+                        if (lastHierarchicalDirectory.Level > level)
+                            ulTag = "</ul>";
+                        pathItems = linkPath.Split('\\');
+                        linkPath = "";
+                        for (int i = 0; i < pathItems.Length - 1; i++)
+                        {
+                            linkPath += pathItems[i] + "\\";
+                        }
+                        linkPath += subDirectory.Name;
+                    }
+                }
+                else
+                {
+                    linkPath += $"\\{subDirectory.Name}";
+                }
+                if (linkPath == path)
+                    underlineLink = true;
+                hierarchicalDirectories.Add(new HierarchicalDirectoryModel()
+                {
+                    Path = linkPath,
+                    Link = $"{ulTag}<li>" +
+                        $"<a style=\"{(underlineLink ? "text-decoration: underline;": "text-decoration: none;")}\" " +
+                        $"href=\"{(string.IsNullOrWhiteSpace(_area) ? "/" : "/" + _area + "/")}" +
+                        $"{_controller}/{_action}?path={linkPath}\">" +
+                        $"{(underlineLink ? "<b>" + subDirectory.Name + "</b>" : subDirectory.Name)}</a></li>",
+                    Level = level
+                });
+                GetHierarchicalDirectoryLinks(subDirectory, path, linkPath, level, hierarchicalDirectories);
+            }
+            return $"<ul style=\"list-style-type: none;\">{string.Join("", hierarchicalDirectories.Select(d => d.Link))}</ul>";
         }
     }
 }
