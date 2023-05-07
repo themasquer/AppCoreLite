@@ -238,7 +238,7 @@ namespace AppCoreLite.Managers.Bases
                 hierarchicalDirectories.Add(new HierarchicalDirectoryModel()
                 {
                     Path = linkPath,
-                    Link = $"{ulTag}<li>" +
+                    Link = $"{ulTag}<li class=\"{(underlineLink ? "currenthierarchicaldirectory" : "")}\">" +
                         $"<a style=\"{(underlineLink ? "text-decoration: underline;": "text-decoration: none;")}\" " +
                         $"href=\"{(string.IsNullOrWhiteSpace(_area) ? "/" : "/" + _area + "/")}" +
                         $"{_controller}/{_action}?path={linkPath}\">" +
@@ -247,7 +247,7 @@ namespace AppCoreLite.Managers.Bases
                 });
                 GetHierarchicalDirectoryLinks(subDirectory, path, linkPath, level, hierarchicalDirectories);
             }
-            return $"<ul style=\"list-style-type: none;\">{string.Join("", hierarchicalDirectories.Select(d => d.Link))}</ul>";
+            return $"<ul class=\"hierarchicaldirectories\" style=\"list-style-type: none;\">{string.Join("", hierarchicalDirectories.Select(d => d.Link))}</ul>";
         }
     }
 }

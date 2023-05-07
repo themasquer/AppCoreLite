@@ -44,7 +44,7 @@
             }
             else
             {
-                <ul class="navbar-nav">
+                <ul class="navbar-nav hierarchicaldirectorycontents">
                     @if (Model.Contents != null)
                     {
                         @foreach (var content in Model.Contents)
@@ -84,6 +84,14 @@
             $("#clipboardbutton").click(function(){
                 copyToClipboard("clipboardcontainer", "clipboardbutton", "Copied!");
             });
+
+            $(".hierarchicaldirectories").animate({
+                scrollTop: $(".currenthierarchicaldirectory").offset().top - 140
+            }, "fast");
+
+            $(".hierarchicaldirectorycontents").animate({
+                scrollTop: 0
+            }, "fast");
         });
     </script>
 }
