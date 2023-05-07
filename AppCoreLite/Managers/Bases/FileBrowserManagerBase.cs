@@ -213,7 +213,13 @@ namespace AppCoreLite.Managers.Bases
                     else 
                     {
                         if (lastHierarchicalDirectory.Level > level)
+                        {
                             ulTag = "</ul>";
+                            for (int i = level; i < lastHierarchicalDirectory.Level - 1; i++)
+                            {
+                                ulTag += "</ul>";
+                            }
+                        }
                         pathItems = linkPath.Split('\\');
                         linkPath = "";
                         for (int i = 0; i < pathItems.Length - 1; i++)
