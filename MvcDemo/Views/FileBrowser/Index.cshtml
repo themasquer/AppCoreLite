@@ -23,10 +23,10 @@
     </div>
     <hr />
     <div class="row">
-        <div class="col-3 ps-0 border-end border-dark" style="height: 535px; overflow: auto;">
+        <div class="col-3 ps-0 border-end border-dark" style="height: 550px; overflow: auto;">
             @Html.Raw(Model.HierarchicalDirectoryLinks)
         </div>
-        <div class="col-9">
+        <div class="col-9" style="height: 550px; overflow: auto;">
             @if (Model.FileContent != null)
             {
                 if (Model.FileType == FileTypes.Text)
@@ -85,13 +85,7 @@
                 copyToClipboard("clipboardcontainer", "clipboardbutton", "Copied!");
             });
 
-            $(".hierarchicaldirectories").animate({
-                scrollTop: $(".currenthierarchicaldirectory").offset().top - 140
-            }, "fast");
-
-            $(".hierarchicaldirectorycontents").animate({
-                scrollTop: 0
-            }, "fast");
+            $(".currenthierarchicaldirectory")[0].scrollIntoView();
         });
     </script>
 }
