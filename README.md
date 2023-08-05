@@ -20,7 +20,8 @@ ASP.NET WebApi Features:
 1) JWT creation utility.
 2) Hierarchical data services.
 
-Other than these features AppCoreLite provides some useful utilities such as writing a money value into text format (Only supported in Turkish for now).
+Other than these features AppCoreLite provides some useful utilities such as writing a money value into text format (Only supported in Turkish for now)
+and checking intersections in a list of date time for start and end date time values.
 
 AppCoreLite also includes a scaffolding application called ScaffoldApp for updating MVC and WebApi scaffolding templates.
 
