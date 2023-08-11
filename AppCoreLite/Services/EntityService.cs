@@ -87,8 +87,8 @@ namespace AppCoreLite.Services
                 var propertyForOrdering = GetOrderingProperty(pageOrderFilter.OrderExpression);
                 if (propertyForOrdering != null)
                 {
-                    query = pageOrderFilter.IsOrderDirectionAscending ? query.OrderBy(_reflectionUtil.GetOrderExpression<TEntity>(propertyForOrdering.Name))
-                            : query.OrderByDescending(_reflectionUtil.GetOrderExpression<TEntity>(propertyForOrdering.Name));
+                    query = pageOrderFilter.IsOrderDirectionAscending ? query.OrderBy(_reflectionUtil.GetExpression<TEntity>(propertyForOrdering.Name))
+                            : query.OrderByDescending(_reflectionUtil.GetExpression<TEntity>(propertyForOrdering.Name));
                 }
                 if (_propertiesForFiltering != null && _propertiesForFiltering.Count > 0 && !string.IsNullOrWhiteSpace(pageOrderFilter.Filter))
                 {
@@ -138,8 +138,8 @@ namespace AppCoreLite.Services
                 var propertyForOrdering = GetOrderingProperty(pageOrderFilter.OrderExpression);
                 if (propertyForOrdering != null)
                 {
-                    query = pageOrderFilter.IsOrderDirectionAscending ? query.OrderBy(_reflectionUtil.GetOrderExpression<TEntity>(propertyForOrdering.Name))
-                            : query.OrderByDescending(_reflectionUtil.GetOrderExpression<TEntity>(propertyForOrdering.Name));
+                    query = pageOrderFilter.IsOrderDirectionAscending ? query.OrderBy(_reflectionUtil.GetExpression<TEntity>(propertyForOrdering.Name))
+                            : query.OrderByDescending(_reflectionUtil.GetExpression<TEntity>(propertyForOrdering.Name));
                 }
                 if (_propertiesForFiltering != null && _propertiesForFiltering.Count > 0 && !string.IsNullOrWhiteSpace(pageOrderFilter.Filter))
                 {

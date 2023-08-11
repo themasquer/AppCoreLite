@@ -139,8 +139,8 @@ namespace AppCoreLite.Managers.Bases
                 var propertyForOrdering = GetOrderingProperty(pageOrder.OrderExpression);
                 if (propertyForOrdering != null)
                 {
-                    query = pageOrder.IsOrderDirectionAscending ? query.OrderBy(_reflectionUtil.GetOrderExpression<TReport>(propertyForOrdering.Name))
-                            : query.OrderByDescending(_reflectionUtil.GetOrderExpression<TReport>(propertyForOrdering.Name));
+                    query = pageOrder.IsOrderDirectionAscending ? query.OrderBy(_reflectionUtil.GetExpression<TReport>(propertyForOrdering.Name))
+                            : query.OrderByDescending(_reflectionUtil.GetExpression<TReport>(propertyForOrdering.Name));
                 }
             }
             if (predicate != null)

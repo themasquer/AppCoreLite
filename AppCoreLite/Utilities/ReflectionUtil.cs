@@ -113,7 +113,7 @@ namespace AppCoreLite.Utilities
             return Expression.Lambda<Func<T, bool>>(containsCall, parameter);
         }
 
-        public Expression<Func<T, object?>> GetOrderExpression<T>(string propertyName) where T : class
+        public Expression<Func<T, object?>> GetExpression<T>(string propertyName) where T : class
         {
             var parameter = Expression.Parameter(typeof(T), "t");
             Expression conversion = Expression.Convert(Expression.Property(parameter, propertyName), typeof(object));
