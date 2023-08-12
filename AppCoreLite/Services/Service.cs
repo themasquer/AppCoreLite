@@ -15,7 +15,7 @@ namespace AppCoreLite.Services
     /// <summary>
     /// Service class for managing data access CRUD operations using models.
     /// </summary>
-    public class Service<TEntity, TModel> : ServiceBase<TEntity> where TEntity : Record, new() where TModel : Record, new()
+    public class Service<TEntity, TModel> : ServiceBase<TEntity>, IService<TEntity, TModel> where TEntity : Record, new() where TModel : Record, new()
     {
         private Mapper? _mapper;
         private MapperConfiguration? _mapperConfiguration;

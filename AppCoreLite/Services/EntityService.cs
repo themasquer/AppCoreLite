@@ -13,7 +13,7 @@ namespace AppCoreLite.Services
     /// <summary>
     /// Service class for managing data access CRUD operations using entities.
     /// </summary>
-    public class EntityService<TEntity> : ServiceBase<TEntity> where TEntity : Record, new()
+    public class EntityService<TEntity> : ServiceBase<TEntity>, IEntityService<TEntity> where TEntity : Record, new()
     {
         public EntityService(DbContext db, IHttpContextAccessor httpContextAccessor) : base(db, httpContextAccessor)
         {
