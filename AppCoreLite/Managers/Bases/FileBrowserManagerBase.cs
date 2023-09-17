@@ -55,6 +55,7 @@ namespace AppCoreLite.Managers.Bases
         Dictionary<string, string> otherFiles = new Dictionary<string, string>()
         {
                 { ".zip", "application/zip" },
+                { ".7z", "application/zip" },
                 { ".docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }
         };
 
