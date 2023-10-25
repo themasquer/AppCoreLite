@@ -8,7 +8,7 @@ namespace DataAccessDemo.Contexts
         public UnitDb CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<UnitDb>();
-            optionsBuilder.UseSqlServer("server=.\\SQLEXPRESS;database=ETradeAppCoreLiteDemo;user id=sa;password=sa;multipleactiveresultsets=true;trustservercertificate=true;");
+            optionsBuilder.UseSqlServer("server=(localdb)\\mssqllocaldb;database=AppCoreLiteETradeDemo;trusted_connection=true;multipleactiveresultsets=true;trustservercertificate=true;");
             return new UnitDb(optionsBuilder.Options);
         }
     }

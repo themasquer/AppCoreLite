@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessDemo.Migrations.UnitDbMigrations
 {
     [DbContext(typeof(UnitDb))]
-    [Migration("20230101100513_v1")]
-    partial class v1
+    [Migration("20231025164103_v2")]
+    partial class v2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
